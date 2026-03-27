@@ -436,8 +436,49 @@ html.lenis, html.lenis body { height: auto; }
             transition: color 0.3s ease;
         }
 
-        .social-icon:hover {
-            color: var(--primary-gold);
+        /* Animated Typography Highlights */
+        .reveal-text span span.glow-text {
+            text-shadow: 0 0 15px rgba(200, 151, 43, 0.4);
+            animation: text-pulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes text-pulse {
+            from { text-shadow: 0 0 15px rgba(200, 151, 43, 0.4); }
+            to { text-shadow: 0 0 30px rgba(200, 151, 43, 0.7); }
+        }
+
+        /* Floating Animation for Hero Card */
+        .floating-animate {
+            animation: floating 4s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        /* Decorative Gold Line for Conclusion */
+        .decorative-line {
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            margin: 0 auto 2.5rem;
+            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .decorative-line.active {
+            width: 80px;
+        }
+
+        /* Stats Counter Polish */
+        .stat-number {
+            display: inline-block;
+            transition: all 0.4s ease;
+        }
+
+        .stat-item.active .stat-number {
+            text-shadow: 0 0 20px rgba(255, 222, 164, 0.3);
+            transform: scale(1.05);
         }
 
         .hover-scale {
@@ -528,7 +569,7 @@ html.lenis, html.lenis body { height: auto; }
   <span class="overflow-hidden block"><span class="block">From Dream to</span></span>
   <span class="overflow-hidden block"><span class="block">Doorstep</span></span>
   <span class="overflow-hidden block"><span class="block">Unlock Your Next</span></span>
-  <span class="overflow-hidden block italic text-primary"><span class="block">Property</span></span>
+  <span class="overflow-hidden block italic text-primary"><span class="block glow-text">Property</span></span>
 </h1>
 <div class="flex gap-6">
 <button class="btn-premium bg-primary text-white px-10 py-5 rounded-2xl font-bold hover:scale-105 transition-all contact-btn shadow-premium">Explore Projects</button>
@@ -536,7 +577,7 @@ html.lenis, html.lenis body { height: auto; }
 </div>
 </div>
 <div class="w-full md:w-[45%] relative">
-<div class="hero-card-container aspect-[4/5] rounded-[2.5rem] bg-gradient-to-br from-[#1A2B4A] to-[#081121] overflow-hidden flex items-center justify-center p-12 text-center relative border border-white/5">
+<div class="hero-card-container floating-animate aspect-[4/5] rounded-[2.5rem] bg-gradient-to-br from-[#1A2B4A] to-[#081121] overflow-hidden flex items-center justify-center p-12 text-center relative border border-white/5 opacity-0 scale-95 transition-all duration-1000">
 <div class="absolute inset-0 opacity-10 blueprint-grid"></div>
 <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 <h2 class="font-headline text-5xl text-white/90 leading-tight tracking-tight uppercase">NIRMAAN<br>AVAKH</h2>
@@ -546,7 +587,7 @@ html.lenis, html.lenis body { height: auto; }
 <span class="material-symbols-outlined text-primary text-3xl">home_work</span>
 </div>
 <div>
-<p class="text-3xl font-bold text-on-surface">150+</p>
+<p class="text-3xl font-bold text-on-surface stat-counter" data-target="150">0</p>
 <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.2em]">Projects Delivered</p>
 </div>
 </div>
@@ -556,20 +597,20 @@ html.lenis, html.lenis body { height: auto; }
 <!-- Stats Bar -->
 <section class="bg-[#1A2B4A] py-24">
 <div class="max-w-7xl mx-auto px-12 grid grid-cols-2 md:grid-cols-4 gap-16 text-center">
-<div class="stat-item space-y-2 hover-lift">
-<h3 class="text-[48px] font-bold text-primary-fixed leading-none">150+</h3>
+<div class="stat-item space-y-2">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none stat-counter" data-target="150">0</h3>
 <p class="text-xs tracking-widest text-white/70 font-bold uppercase">PREMIUM PLOTS</p>
 </div>
-<div class="stat-item space-y-2 hover-lift">
-<h3 class="text-[48px] font-bold text-primary-fixed leading-none">200+</h3>
+<div class="stat-item space-y-2">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none stat-counter" data-target="200">0</h3>
 <p class="text-xs tracking-widest text-white/70 font-bold uppercase">HAPPY CLIENTS</p>
 </div>
-<div class="stat-item space-y-2 hover-lift">
-<h3 class="text-[48px] font-bold text-primary-fixed leading-none">5+</h3>
+<div class="stat-item space-y-2">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none stat-counter" data-target="5">0</h3>
 <p class="text-xs tracking-widest text-white/70 font-bold uppercase">YEARS EXPERIENCE</p>
 </div>
-<div class="stat-item space-y-2 hover-lift">
-<h3 class="text-[48px] font-bold text-primary-fixed leading-none">3</h3>
+<div class="stat-item space-y-2">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none stat-counter" data-target="3">0</h3>
 <p class="text-xs tracking-widest text-white/70 font-bold uppercase">ACTIVE LOCATIONS</p>
 </div>
 </div>
@@ -997,6 +1038,14 @@ html.lenis, html.lenis body { height: auto; }
 </div>
 </div>
 </section>
+<!-- Conclusion Section -->
+<section id="conclusion" class="py-48 bg-white flex flex-col items-center text-center">
+    <div class="decorative-line"></div>
+    <h2 class="reveal-text font-headline text-5xl text-on-surface max-w-3xl px-12 leading-tight">
+        <span class="overflow-hidden block"><span class="block">Building Your Legacy,</span></span>
+        <span class="overflow-hidden block"><span class="block">One Plot at a Time.</span></span>
+    </h2>
+</section>
 </main>
 <!-- Footer -->
 <footer class="bg-[#081121] text-white/50 py-32 px-12 relative overflow-hidden">
@@ -1172,18 +1221,54 @@ html.lenis, html.lenis body { height: auto; }
         // --- Reveal & Stagger Implementation ---
         
         document.addEventListener('DOMContentLoaded', () => {
-            // Stats Bar Stagger
-            gsap.from(".stat-item", {
-                scrollTrigger: {
-                    trigger: ".stat-item",
+            // Force scroll to top on refresh for cinematic entry
+            window.scrollTo(0, 0);
+
+            // Hero Cinematic Entry
+            const heroTimeline = gsap.timeline({ delay: 0.5 });
+            
+            const heroLines = document.querySelectorAll('.hero .reveal-text span > span');
+            if (heroLines.length > 0) {
+                heroTimeline.from(heroLines, {
+                    y: 80,
+                    opacity: 0,
+                    rotateX: -15,
+                    duration: 1.2,
+                    stagger: 0.12,
+                    ease: "power4.out"
+                });
+            }
+
+            heroTimeline.to(".hero-card-container", {
+                opacity: 1,
+                scale: 1,
+                duration: 1.5,
+                ease: "power3.out"
+            }, "-=0.8");
+
+            // Stats Count-Up Animation
+            document.querySelectorAll('.stat-item').forEach(item => {
+                const counters = item.querySelectorAll('.stat-counter');
+                
+                ScrollTrigger.create({
+                    trigger: item,
                     start: "top 85%",
-                },
-                y: 50,
-                opacity: 0,
-                filter: "blur(10px)",
-                duration: 1,
-                stagger: 0.15,
-                ease: "expo.out"
+                    onEnter: () => {
+                        item.classList.add('active');
+                        counters.forEach(counter => {
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            gsap.to(counter, {
+                                innerText: target,
+                                duration: 2.5,
+                                snap: { innerText: 1 },
+                                ease: "power2.out",
+                                onUpdate: function() {
+                                    counter.innerText = Math.ceil(this.targets()[0].innerText) + (target > 5 ? "+" : "");
+                                }
+                            });
+                        });
+                    }
+                });
             });
 
             // Services Grid Stagger
@@ -1286,6 +1371,18 @@ html.lenis, html.lenis body { height: auto; }
 
             // --- Parallax & Scroll-Zoom Implementation ---
 
+            // Background Grid Parallax
+            gsap.to(".blueprint-grid", {
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1
+                },
+                backgroundPosition: "0px 100px",
+                ease: "none"
+            });
+
             // Hero Parallax
             gsap.to(".hero h1", {
                 scrollTrigger: {
@@ -1294,8 +1391,8 @@ html.lenis, html.lenis body { height: auto; }
                     end: "bottom top",
                     scrub: true
                 },
-                y: 150,
-                opacity: 0.5,
+                y: 100,
+                opacity: 0.3,
                 ease: "none"
             });
 
@@ -1313,7 +1410,22 @@ html.lenis, html.lenis body { height: auto; }
 
             // Project Image Scroll-Zoom
             document.querySelectorAll('.project-image-container').forEach(container => {
+                const img = container.querySelector('img');
                 const icon = container.querySelector('.material-symbols-outlined');
+                
+                // Image zoom on scroll
+                gsap.to(img, {
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    },
+                    scale: 1.1,
+                    ease: "none"
+                });
+
+                // Icon parallax shift
                 gsap.to(icon, {
                     scrollTrigger: {
                         trigger: container,
@@ -1358,23 +1470,32 @@ html.lenis, html.lenis body { height: auto; }
                     end: "bottom top",
                     scrub: true
                 },
-                y: -50,
+                y: -80,
                 ease: "none"
             });
 
+            // Conclusion Section Animation
+            const conclusionLine = document.querySelector('.decorative-line');
+            const conclusionText = document.querySelectorAll('#conclusion .reveal-text span > span');
+
+            ScrollTrigger.create({
+                trigger: "#conclusion",
+                start: "top 80%",
+                onEnter: () => {
+                    conclusionLine.classList.add('active');
+                    gsap.from(conclusionText, {
+                        y: 60,
+                        opacity: 0,
+                        filter: "blur(10px)",
+                        duration: 2,
+                        stagger: 0.3,
+                        ease: "power3.out"
+                    });
+                }
+            });
+
             // --- Typography Reveal Implementation (Hero) ---
-            const heroLines = document.querySelectorAll('.hero .reveal-text span > span');
-            if (heroLines.length > 0) {
-                gsap.from(heroLines, {
-                    y: 100,
-                    opacity: 0,
-                    rotateX: -20,
-                    duration: 1.5,
-                    stagger: 0.15,
-                    ease: "expo.out",
-                    delay: 0.5
-                });
-            }
+            // (Handled by heroTimeline now, removing old trigger)
 
             // Other Text Reveals
             document.querySelectorAll('main .reveal-text').forEach(text => {
