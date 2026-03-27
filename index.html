@@ -90,53 +90,14 @@ html.lenis, html.lenis body { height: auto; }
     </script>
     <style>
         :root {
-            --primary-gold: #C8972B;
-            --primary-gold-light: #E5C37A;
-            --primary-gold-intense: #A67C1D;
-            --primary-sapphire: #1A2B4A;
-            --surface-light: #FFFFFF;
-            --surface-muted: #F8F9FA;
-            --surface-variant: #F0F2F5; /* Apple-style light grey */
-            --on-surface: #0F172A;
-            --on-surface-variant: #64748B;
-            --shadow-premium: 0 20px 50px rgba(15, 23, 42, 0.04);
-            --border-radius-premium: 24px;
-            --transition-premium: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --primary-gold: #c8972b;
+            --primary-gold-glow: rgba(200, 151, 43, 0.15);
+            --primary-gold-intense: rgba(200, 151, 43, 0.4);
         }
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--surface-light);
-            color: var(--on-surface);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Standardized Premium Card */
-        .premium-card {
-            background: var(--surface-light);
-            border-radius: var(--border-radius-premium);
-            box-shadow: var(--shadow-premium);
-            border: 1px solid rgba(15, 23, 42, 0.05);
-            transition: transform var(--transition-premium), box-shadow var(--transition-premium);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .premium-card:active, .premium-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
-        }
-
-        .tap-scale:active {
-            transform: scale(0.97);
-        }
-/* Global Transitions — desktop only */
-        @media (min-width: 769px) {
-            * {
-                transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            }
+        /* Global Transitions */
+        * {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .blueprint-grid {
@@ -329,49 +290,35 @@ html.lenis, html.lenis body { height: auto; }
 
         /* --- Premium Animation System --- */
         
-        /* Reveal Base — DESKTOP ONLY animations */
-        @media (min-width: 769px) {
-            .reveal, .reveal-text span span {
-                will-change: transform, opacity;
-            }
-            .reveal {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-            }
-            .reveal.visible {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            .reveal-up { transform: translateY(40px); }
-            .reveal-down { transform: translateY(-40px); }
-            .reveal-left { transform: translateX(-40px); }
-            .reveal-right { transform: translateX(40px); }
-            .reveal-scale { transform: scale(0.95); }
-            .reveal-fade { transform: translateY(0); }
+        /* Reveal Base */
+        .reveal, .reveal-text span span {
+            will-change: transform, opacity;
         }
-
-        /* MOBILE: Force everything visible immediately */
-        @media (max-width: 768px) {
-            .reveal, .reveal-text span span, .premium-card, .team-card,
-            .project-card, .testimonial-card, .service-card, .stat-item,
-            .hero-card-container, .hero h1, .contact-form, .contact-info-item {
-                opacity: 1 !important;
-                transform: none !important;
-                filter: none !important;
-                -webkit-filter: none !important;
-                visibility: visible !important;
-            }
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        /* Failsafe: if JS fails or is slow, show content after 1.5s */
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Failsafe: if JS fails or is slow, show content after 3s */
         @keyframes forceVisible {
             to { opacity: 1 !important; transform: none !important; filter: none !important; }
         }
         .js-loading .reveal, .js-loading .reveal-text span span {
             animation: forceVisible 0.1s forwards;
-            animation-delay: 1.5s;
+            animation-delay: 5s;
         }
+
+        /* Specific Directions */
+        .reveal-up { transform: translateY(40px); }
+        .reveal-down { transform: translateY(-40px); }
+        .reveal-left { transform: translateX(-40px); }
+        .reveal-right { transform: translateX(40px); }
+        .reveal-scale { transform: scale(0.95); }
+        .reveal-fade { transform: translateY(0); }
 
         /* Staggered Delays */
         .delay-100 { transition-delay: 100ms; }
@@ -534,140 +481,6 @@ html.lenis, html.lenis body { height: auto; }
             transform: scale(1.05);
         }
 
-        /* --- Mobile Responsiveness Overrides (Apple Level) --- */
-        @media (max-width: 768px) {
-            html, body {
-                overflow-x: hidden !important;
-                width: 100% !important;
-                max-width: 100vw !important;
-                position: relative;
-            }
-
-            * {
-                max-width: 100vw;
-            }
-
-            section {
-                padding: 3rem 1rem !important;
-            }
-
-            .max-w-7xl {
-                padding-left: 1rem !important;
-                padding-right: 1rem !important;
-            }
-
-            /* Navbar */
-            #main-nav {
-                padding: 0.75rem 1rem !important;
-                height: auto !important;
-            }
-
-            /* Hero */
-            .hero {
-                padding-top: 4.5rem !important;
-                padding-bottom: 2.5rem !important;
-                gap: 1.5rem !important;
-                text-align: center;
-                flex-direction: column !important;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem !important;
-                line-height: 1.15 !important;
-            }
-
-            .hero-card-container {
-                aspect-ratio: 4/3 !important;
-                padding: 1.5rem !important;
-                border-radius: 20px !important;
-            }
-
-            /* Stats — force visible values */
-            .stat-counter {
-                opacity: 1 !important;
-                visibility: visible !important;
-            }
-
-            /* Properties Carousel */
-            .project-grid {
-                display: flex !important;
-                overflow-x: auto !important;
-                scroll-snap-type: x mandatory !important;
-                gap: 1rem !important;
-                padding: 0 0 1rem 0 !important;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-            }
-            .project-grid::-webkit-scrollbar {
-                display: none;
-            }
-            .project-grid > div {
-                flex: 0 0 85% !important;
-                scroll-snap-align: center !important;
-                margin: 0 !important;
-            }
-
-            .project-image-container {
-                height: 180px !important;
-                border-radius: 20px 20px 0 0 !important;
-            }
-            .project-image-container img {
-                object-fit: cover !important;
-                width: 100% !important;
-                height: 100% !important;
-            }
-
-            /* Cards — compact mobile layout */
-            .premium-card {
-                padding: 0 !important;
-                max-width: 100% !important;
-                border-radius: 20px !important;
-                overflow: visible !important;
-            }
-            .premium-card .p-10, .premium-card .p-8, .premium-card .p-12 {
-                padding: 1.25rem !important;
-            }
-            .team-card {
-                padding: 1.5rem !important;
-                max-width: 100% !important;
-            }
-            .testimonial-card, .service-card, .project-card {
-                padding: 0 !important;
-                max-width: 100% !important;
-            }
-
-            /* Enquiry Form */
-            .contact-form-container {
-                width: 100% !important;
-                padding: 0 !important;
-            }
-            .contact-form {
-                padding: 1.5rem !important;
-                width: 100% !important;
-                border-radius: 20px !important;
-                margin: 0 !important;
-                overflow: visible !important;
-            }
-
-            /* Grid Spacing */
-            .grid {
-                gap: 1.5rem !important;
-            }
-
-            /* Footer */
-            footer {
-                padding: 3rem 1rem !important;
-            }
-
-            /* KILL all animations on mobile for reliability */
-            .premium-card:active, .premium-card:hover {
-                transform: none !important;
-            }
-            .team-card:hover {
-                transform: none !important;
-            }
-        }
-
         .hover-scale {
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -727,7 +540,7 @@ html.lenis, html.lenis body { height: auto; }
         }
     </style>
 </head>
-<body class="bg-[#FBFBFC] font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
 <!-- Top Navigation Bar -->
 <nav id="main-nav" class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg flex justify-between items-center px-12 py-6 max-w-full mx-auto transition-all duration-500">
 <div class="flex items-center gap-3 hover:scale-[1.02] transition-transform duration-300">
@@ -755,7 +568,7 @@ html.lenis, html.lenis body { height: auto; }
 <h1 class="reveal-text font-headline text-on-surface mb-10">
   <span class="overflow-hidden block"><span class="block">From Dream to</span></span>
   <span class="overflow-hidden block"><span class="block">Doorstep</span></span>
-  <span class="overflow-hidden block"><span class="block opacity-70">Unlock Your Next</span></span>
+  <span class="overflow-hidden block"><span class="block">Unlock Your Next</span></span>
   <span class="overflow-hidden block italic text-primary"><span class="block glow-text">Property</span></span>
 </h1>
 <div class="flex gap-6">
@@ -764,11 +577,12 @@ html.lenis, html.lenis body { height: auto; }
 </div>
 </div>
 <div class="w-full md:w-[45%] relative">
-<div class="hero-card-container floating-animate aspect-[4/5] rounded-[3rem] bg-white overflow-hidden flex items-center justify-center p-12 text-center relative shadow-premium border border-black/5 opacity-0 scale-95 transition-all duration-1000">
-<div class="absolute inset-0 opacity-[0.03] blueprint-grid"></div>
-<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
-<h2 class="font-headline text-5xl text-[#1A2B4A]/90 leading-tight tracking-tight uppercase">NIRMAAN<br>AVAKH</h2>
-<div class="absolute -bottom-8 -left-8 bg-white p-8 rounded-[2rem] shadow-premium flex items-center gap-5 border border-black/5 tap-scale">
+<div class="hero-card-container floating-animate aspect-[4/5] rounded-[2.5rem] bg-gradient-to-br from-[#1A2B4A] to-[#081121] overflow-hidden flex items-center justify-center p-12 text-center relative border border-white/5 opacity-0 scale-95 transition-all duration-1000">
+<div class="absolute inset-0 opacity-10 blueprint-grid"></div>
+<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+<h2 class="font-headline text-5xl text-white/90 leading-tight tracking-tight uppercase">NIRMAAN<br>AVAKH</h2>
+<!-- Stats Card Floating -->
+<div class="absolute -bottom-8 -left-8 bg-white p-8 rounded-[2rem] shadow-premium flex items-center gap-5 border border-[#F0F0F0]">
 <div class="bg-primary/10 p-4 rounded-2xl">
 <span class="material-symbols-outlined text-primary text-3xl">home_work</span>
 </div>
@@ -781,23 +595,23 @@ html.lenis, html.lenis body { height: auto; }
 </div>
 </section>
 <!-- Stats Bar -->
-<section class="bg-white py-24 border-y border-black/5">
+<section class="bg-[#1A2B4A] py-24">
 <div class="max-w-7xl mx-auto px-12 grid grid-cols-2 md:grid-cols-4 gap-16 text-center">
-<div class="stat-item space-y-2 tap-scale">
-<h3 class="text-[48px] font-bold text-[#1A2B4A] leading-none stat-counter" data-target="150">0</h3>
-<p class="text-xs tracking-widest text-[#1A2B4A]/60 font-bold uppercase">PREMIUM PLOTS</p>
+<div class="stat-item space-y-2">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none stat-counter" data-target="150">0</h3>
+<p class="text-xs tracking-widest text-white/70 font-bold uppercase">PREMIUM PLOTS</p>
 </div>
-<div class="stat-item space-y-2 tap-scale">
-<h3 class="text-[48px] font-bold text-[#1A2B4A] leading-none stat-counter" data-target="200">0</h3>
-<p class="text-xs tracking-widest text-[#1A2B4A]/60 font-bold uppercase">HAPPY CLIENTS</p>
+<div class="stat-item space-y-2">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none stat-counter" data-target="200">0</h3>
+<p class="text-xs tracking-widest text-white/70 font-bold uppercase">HAPPY CLIENTS</p>
 </div>
-<div class="stat-item space-y-2 tap-scale">
-<h3 class="text-[48px] font-bold text-[#1A2B4A] leading-none stat-counter" data-target="5">0</h3>
-<p class="text-xs tracking-widest text-[#1A2B4A]/60 font-bold uppercase">YEARS EXPERIENCE</p>
+<div class="stat-item space-y-2">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none stat-counter" data-target="5">0</h3>
+<p class="text-xs tracking-widest text-white/70 font-bold uppercase">YEARS EXPERIENCE</p>
 </div>
-<div class="stat-item space-y-2 tap-scale">
-<h3 class="text-[48px] font-bold text-[#1A2B4A] leading-none stat-counter" data-target="3">0</h3>
-<p class="text-xs tracking-widest text-[#1A2B4A]/60 font-bold uppercase">ACTIVE LOCATIONS</p>
+<div class="stat-item space-y-2">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none stat-counter" data-target="3">0</h3>
+<p class="text-xs tracking-widest text-white/70 font-bold uppercase">ACTIVE LOCATIONS</p>
 </div>
 </div>
 </section>
@@ -816,57 +630,57 @@ html.lenis, html.lenis body { height: auto; }
 </div>
 </div>
 <div class="md:w-1/2 space-y-24 pt-24">
-<div class="reveal reveal-right premium-card bg-[#F8F9FA] p-12 border-l-8 border-primary-container shadow-premium relative overflow-hidden h-[400px] flex items-center tap-scale">
+<div class="reveal reveal-right bg-[#0F1E35] p-12 rounded-3xl border-l-8 border-primary-container shadow-2xl relative overflow-hidden h-[400px] flex items-center">
 <div class="absolute top-0 right-0 p-8 opacity-10">
-<span class="material-symbols-outlined text-[#1A2B4A] text-9xl">verified</span>
+<span class="material-symbols-outlined text-white text-9xl">verified</span>
 </div>
 <div>
-<h3 class="font-headline text-3xl text-on-surface mb-6">Integrity</h3>
-<p class="text-on-surface-variant text-lg leading-relaxed">Every transaction is guided by absolute transparency and legal diligence.</p>
+<h3 class="font-headline text-3xl text-white mb-6">Integrity</h3>
+<p class="text-white/70 text-lg">Every transaction is guided by absolute transparency and legal diligence.</p>
 </div>
 </div>
-<div class="reveal reveal-right delay-200 premium-card bg-primary-container p-12 shadow-premium relative overflow-hidden h-[400px] flex items-center tap-scale">
+<div class="reveal reveal-right delay-200 bg-primary-container p-12 rounded-3xl shadow-2xl relative overflow-hidden h-[400px] flex items-center">
 <div class="absolute top-0 right-0 p-8 opacity-10">
 <span class="material-symbols-outlined text-white text-9xl">architecture</span>
 </div>
 <div>
 <h3 class="font-headline text-3xl text-white mb-6">Excellence</h3>
-<p class="text-white/80 text-lg leading-relaxed">Merging modern design with functional brilliance for lasting value.</p>
+<p class="text-white/70 text-lg">Merging modern design with functional brilliance for lasting value.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
 <!-- Our Services -->
-<section class="reveal reveal-fade bg-white py-32" id="services">
+<section class="reveal reveal-fade bg-[#F9F9FB] py-32" id="services">
 <div class="max-w-7xl mx-auto px-12">
 <span class="reveal reveal-up text-primary-container font-bold text-xs tracking-[0.3em] uppercase mb-4 block">WHAT WE OFFER</span>
 <h2 class="reveal-text font-headline text-4xl text-on-surface mb-12 golden-underline">
   <span class="overflow-hidden block"><span class="block">Our Services</span></span>
 </h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 <!-- Service Card -->
-<div class="premium-card p-10 tap-scale">
-<span class="material-symbols-outlined text-primary text-4xl mb-4">landscape</span>
-<h4 class="font-headline text-2xl mb-4 text-[#1A2B4A]">Land Sale &amp; Purchase</h4>
+<div class="service-card bg-surface-container-lowest p-8 rounded-2xl border-l-4 border-primary-container shadow-sm hover-lift transition-shadow">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">landscape</span>
+<h4 class="font-headline text-xl mb-3">Land Sale &amp; Purchase</h4>
 <p class="text-on-surface-variant leading-relaxed">Expert consultancy and facilitation for premium land acquisitions and strategic sales in the heart of Assam.</p>
 </div>
 <!-- Service Card -->
-<div class="premium-card p-10 tap-scale">
-<span class="material-symbols-outlined text-primary text-4xl mb-4">apartment</span>
-<h4 class="font-headline text-2xl mb-4 text-[#1A2B4A]">Flats & Marketing</h4>
+<div class="service-card bg-surface-container-lowest p-8 rounded-2xl border-l-4 border-primary-container shadow-sm hover-lift transition-shadow">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">apartment</span>
+<h4 class="font-headline text-xl mb-3">Flats &amp; Apartments Marketing</h4>
 <p class="text-on-surface-variant leading-relaxed">Comprehensive marketing solutions for high-end residential complexes, connecting buyers with their dream homes.</p>
 </div>
 <!-- Service Card -->
-<div class="premium-card p-10 tap-scale">
-<span class="material-symbols-outlined text-primary text-4xl mb-4">home_pin</span>
-<h4 class="font-headline text-2xl mb-4 text-[#1A2B4A]">Residential Sales</h4>
+<div class="service-card bg-surface-container-lowest p-8 rounded-2xl border-l-4 border-primary-container shadow-sm hover-lift transition-shadow">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">home_pin</span>
+<h4 class="font-headline text-xl mb-3">Residential Sales &amp; Purchases</h4>
 <p class="text-on-surface-variant leading-relaxed">A dedicated team to guide you through the complexities of buying or selling residential properties with ease.</p>
 </div>
 <!-- Service Card -->
-<div class="premium-card p-10 tap-scale">
-<span class="material-symbols-outlined text-primary text-4xl mb-4">key</span>
-<h4 class="font-headline text-2xl mb-4 text-[#1A2B4A]">Rental Search</h4>
+<div class="service-card bg-surface-container-lowest p-8 rounded-2xl border-l-4 border-primary-container shadow-sm hover-lift transition-shadow">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">key</span>
+<h4 class="font-headline text-xl mb-3">Rental Property Search</h4>
 <p class="text-on-surface-variant leading-relaxed">Curated listings and verified leads to help you find the perfect rental property that fits your lifestyle and budget.</p>
 </div>
 </div>
@@ -935,26 +749,25 @@ html.lenis, html.lenis body { height: auto; }
 </div>
 </section>
 <!-- Our Projects -->
-<section class="reveal reveal-fade bg-white py-32 border-t border-black/5" id="projects">
+<section class="reveal reveal-fade bg-[#1A2B4A] py-32" id="projects">
 <div class="max-w-7xl mx-auto px-12">
 <div class="reveal reveal-up flex items-center gap-4 mb-6">
-<span class="bg-primary/10 text-primary px-4 py-1 font-bold text-[10px] tracking-widest uppercase rounded">EXPLORE</span>
-<div class="h-[1px] flex-1 bg-black/5"></div>
+<span class="bg-primary-container text-white px-4 py-1 font-bold text-[10px] tracking-widest uppercase">EXPLORE</span>
+<div class="h-[1px] flex-1 bg-white/20"></div>
 </div>
-<h2 class="reveal-text font-headline text-5xl text-on-surface mb-12">
+<h2 class="reveal-text font-headline text-5xl text-white mb-12">
   <span class="overflow-hidden block"><span class="block">Our Projects</span></span>
 </h2>
 <!-- Tab Buttons -->
 <div class="reveal reveal-up delay-200 flex flex-wrap gap-4 mb-16">
-<button class="tab-btn tab-active px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 border border-black/5 hover:border-primary" id="btn-ongoing" onclick="switchTab('ongoing')">ONGOING</button>
-<button class="tab-btn px-8 py-3 rounded-full font-bold text-sm text-on-surface-variant transition-all duration-300 border border-black/5 hover:border-primary" id="btn-upcoming" onclick="switchTab('upcoming')">UPCOMING</button>
-<button class="tab-btn px-8 py-3 rounded-full font-bold text-sm text-on-surface-variant transition-all duration-300 border border-black/5 hover:border-primary" id="btn-completed" onclick="switchTab('completed')">COMPLETED</button>
+<button class="tab-btn tab-active px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 border border-white/10 hover:border-primary-container" id="btn-ongoing" onclick="switchTab('ongoing')">ONGOING</button>
+<button class="tab-btn px-8 py-3 rounded-full font-bold text-sm text-white/70 transition-all duration-300 border border-white/10 hover:border-primary-container" id="btn-upcoming" onclick="switchTab('upcoming')">UPCOMING</button>
+<button class="tab-btn px-8 py-3 rounded-full font-bold text-sm text-white/70 transition-all duration-300 border border-white/10 hover:border-primary-container" id="btn-completed" onclick="switchTab('completed')">COMPLETED</button>
 </div>
 <!-- Ongoing Grid -->
 <div class="project-grid grid grid-cols-1 md:grid-cols-3 gap-10" id="grid-ongoing">
-<!-- Project 1 -->
-<div class="premium-card tap-scale">
-<div class="project-image-container relative h-72 flex items-center justify-center bg-[#F8F9FA]">
+<div class="project-card rounded-3xl overflow-hidden">
+<div class="project-image-container relative h-72 flex items-center justify-center">
 <span class="material-symbols-outlined text-primary text-7xl opacity-20">construction</span>
 <div class="absolute bottom-6 left-6 z-10">
 <p class="text-[10px] font-bold text-white tracking-[0.2em] uppercase bg-primary px-3 py-1 rounded-full">65% COMPLETED</p>
@@ -965,13 +778,14 @@ html.lenis, html.lenis body { height: auto; }
 <p class="text-on-surface-variant text-sm flex items-center gap-2 mb-8">
 <span class="material-symbols-outlined text-base">location_on</span> Chiring Chapori, Dibrugarh
 </p>
-<button class="w-full py-4 border border-black/5 rounded-xl font-bold text-sm tracking-widest hover:bg-black/5 transition-all uppercase" onclick="openProperty('bokul')">View Details</button>
+<button onclick="openProperty('bokul')" class="w-full border border-outline-variant text-on-surface py-4 rounded-xl font-bold hover:bg-surface-container transition-all">
+  View Details
+</button>
 </div>
 </div>
-<!-- Project 2 -->
-<div class="premium-card tap-scale">
-<div class="project-image-container relative h-72 flex items-center justify-center bg-[#F8F9FA]">
-<span class="material-symbols-outlined text-primary text-7xl opacity-20">home</span>
+<div class="project-card rounded-3xl overflow-hidden">
+<div class="project-image-container relative h-72 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-7xl opacity-20">architecture</span>
 <div class="absolute bottom-6 left-6 z-10">
 <p class="text-[10px] font-bold text-white tracking-[0.2em] uppercase bg-primary px-3 py-1 rounded-full">40% COMPLETED</p>
 </div>
@@ -981,23 +795,26 @@ html.lenis, html.lenis body { height: auto; }
 <p class="text-on-surface-variant text-sm flex items-center gap-2 mb-8">
 <span class="material-symbols-outlined text-base">location_on</span> Chiring Chapori, Dibrugarh
 </p>
-<button class="w-full py-4 border border-black/5 rounded-xl font-bold text-sm tracking-widest hover:bg-black/5 transition-all uppercase" onclick="openProperty('chiring')">View Details</button>
+<button onclick="openProperty('chiring')" class="w-full border border-outline-variant text-on-surface py-4 rounded-xl font-bold hover:bg-surface-container transition-all">
+  View Details
+</button>
 </div>
 </div>
-<!-- Project 3 -->
-<div class="premium-card tap-scale">
-<div class="project-image-container relative h-72 flex items-center justify-center bg-[#F8F9FA]">
-<span class="material-symbols-outlined text-primary text-7xl opacity-20">eco</span>
+<div class="project-card rounded-3xl overflow-hidden">
+<div class="project-image-container relative h-72 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-7xl opacity-20">garden_cart</span>
 <div class="absolute bottom-6 left-6 z-10">
 <p class="text-[10px] font-bold text-white tracking-[0.2em] uppercase bg-primary px-3 py-1 rounded-full">80% COMPLETED</p>
 </div>
 </div>
 <div class="p-10">
-<h4 class="font-headline text-2xl mb-2 text-on-surface">Green Valley</h4>
+<h4 class="font-headline text-2xl mb-2 text-on-surface">Lahowal Green Valley</h4>
 <p class="text-on-surface-variant text-sm flex items-center gap-2 mb-8">
 <span class="material-symbols-outlined text-base">location_on</span> Lahowal, Dibrugarh
 </p>
-<button class="w-full py-4 border border-black/5 rounded-xl font-bold text-sm tracking-widest hover:bg-black/5 transition-all uppercase" onclick="openProperty('lahowal')">View Details</button>
+<button onclick="openProperty('lahowal')" class="w-full border border-outline-variant text-on-surface py-4 rounded-xl font-bold hover:bg-surface-container transition-all">
+  View Details
+</button>
 </div>
 </div>
 </div>
@@ -1114,66 +931,51 @@ html.lenis, html.lenis body { height: auto; }
 </div>
 </section>
 <!-- Testimonials -->
-<section class="reveal reveal-fade py-32 bg-white" id="testimonials">
+<section class="reveal reveal-fade bg-[#F9F9FB] py-32">
 <div class="max-w-7xl mx-auto px-12">
-<div class="reveal reveal-up flex flex-col items-center text-center mb-16">
-<span class="text-primary font-bold text-xs tracking-[0.4em] uppercase mb-4">SUCCESS STORIES</span>
-<h2 class="font-headline text-4xl text-on-surface">Client Testimonials</h2>
+<span class="reveal reveal-up text-primary-container font-bold text-xs tracking-[0.3em] uppercase mb-4 block text-center">CLIENT STORIES</span>
+<h2 class="reveal-text font-headline text-4xl text-on-surface mb-16 text-center">
+  <span class="overflow-hidden block"><span class="block">What Our Clients Say</span></span>
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Testimonial -->
+<div class="testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300 hover-lift">
+<div class="flex text-primary-container mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-<!-- Testimonial 1 -->
-<div class="premium-card p-10 tap-scale">
-<div class="flex gap-1 text-primary mb-6">
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
+<p class="font-headline italic text-on-surface-variant text-lg mb-8">"Buying my first plot in Bokul was a seamless experience. Nirmaan Avakh took care of every legal detail with absolute professionalism."</p>
+<h5 class="font-bold text-on-surface">Rajesh Dutta</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Local Business Owner</p>
 </div>
-<p class="text-on-surface-variant italic mb-8 leading-relaxed">"Nirmaan Avakh provided exceptional service in helping us secure our dream plot in Dibrugarh. Their legal clarity is unmatched."</p>
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary font-bold">RB</div>
-<div>
-<p class="text-on-surface font-bold">Rahul Baruah</p>
-<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Business Owner</p>
+<!-- Testimonial -->
+<div class="testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300 hover-lift">
+<div class="flex text-primary-container mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
 </div>
+<p class="font-headline italic text-on-surface-variant text-lg mb-8">"Their marketing team is exceptional. They helped me find a tenant for my apartment within a week. Highly recommended for property management."</p>
+<h5 class="font-bold text-on-surface">Amit Baruah</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">NRI Investor</p>
 </div>
+<!-- Testimonial -->
+<div class="testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300 hover-lift">
+<div class="flex text-primary-container mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
 </div>
-<!-- Testimonial 2 -->
-<div class="premium-card p-10 tap-scale">
-<div class="flex gap-1 text-primary mb-6">
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-</div>
-<p class="text-on-surface-variant italic mb-8 leading-relaxed">"Transparent pricing and professional conduct throughout the purchase process. Highly recommended for real estate investments."</p>
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary font-bold">SD</div>
-<div>
-<p class="text-on-surface font-bold">Sarmistha Dutta</p>
-<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Teacher</p>
-</div>
-</div>
-</div>
-<!-- Testimonial 3 -->
-<div class="premium-card p-10 tap-scale">
-<div class="flex gap-1 text-primary mb-6">
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-<span class="material-symbols-outlined">star</span>
-</div>
-<p class="text-on-surface-variant italic mb-8 leading-relaxed">"Excellent property options and end-to-end support for documentation. They made the entire experience seamless."</p>
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary font-bold">MK</div>
-<div>
-<p class="text-on-surface font-bold">Mridul Kalita</p>
-<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Engineer</p>
-</div>
-</div>
+<p class="font-headline italic text-on-surface-variant text-lg mb-8">"Transparency is rare in real estate, but Nirmaan Avakh has it in their DNA. The site visits were organized and very informative."</p>
+<h5 class="font-bold text-on-surface">Priyanka Phukan</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Educator</p>
 </div>
 </div>
 </div>
@@ -1213,41 +1015,25 @@ html.lenis, html.lenis body { height: auto; }
 <p class="text-on-surface font-medium">+91 94350 XXXXX</p>
 </div>
 </div>
-<div class="flex items-center gap-6 group tap-scale">
-<div class="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-<span class="material-symbols-outlined text-3xl">call</span>
+</div>
+</div>
+<div class="md:w-1/2">
+<div class="bg-surface-container-lowest p-10 rounded-3xl shadow-xl border-t-8 border-primary-container hover-lift transition-all contact-form">
+<h3 class="font-headline text-2xl text-on-surface mb-8">Enquiry Form</h3>
+<form class="space-y-6">
+<div>
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Full Name</label>
+<input class="w-full bg-surface-container-low border-none border-b-2 border-outline-variant focus:border-primary-container focus:ring-0 transition-all py-3 rounded-lg" placeholder="John Doe" type="text"/>
 </div>
 <div>
-<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Call Us</p>
-<p class="text-xl font-bold text-on-surface">+91 94350 XXXXX</p>
-</div>
-</div>
-<div class="flex items-center gap-6 group tap-scale">
-<div class="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-<span class="material-symbols-outlined text-3xl">location_on</span>
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Email ID</label>
+<input class="w-full bg-surface-container-low border-none border-b-2 border-outline-variant focus:border-primary-container focus:ring-0 transition-all py-3 rounded-lg" placeholder="john@example.com" type="email"/>
 </div>
 <div>
-<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Visit Us</p>
-<p class="text-xl font-bold text-on-surface">Dibrugarh, Assam</p>
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Message</label>
+<textarea class="w-full bg-surface-container-low border-none border-b-2 border-outline-variant focus:border-primary-container focus:ring-0 transition-all py-3 rounded-lg" placeholder="I'm interested in..." rows="4"></textarea>
 </div>
-</div>
-</div>
-</div>
-<div class="reveal reveal-right md:w-1/2 contact-form-container">
-<form class="contact-form premium-card p-12 space-y-8 tap-scale">
-<div>
-<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-3 block">Full Name</label>
-<input class="w-full bg-[#F8F9FA] border border-black/5 focus:border-primary focus:ring-0 transition-all p-4 rounded-xl text-on-surface" placeholder="John Doe" type="text"/>
-</div>
-<div>
-<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-3 block">Email ID</label>
-<input class="w-full bg-[#F8F9FA] border border-black/5 focus:border-primary focus:ring-0 transition-all p-4 rounded-xl text-on-surface" placeholder="john@example.com" type="email"/>
-</div>
-<div>
-<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-3 block">Message</label>
-<textarea class="w-full bg-[#F8F9FA] border border-black/5 focus:border-primary focus:ring-0 transition-all p-4 rounded-xl text-on-surface" placeholder="I'm interested in..." rows="4"></textarea>
-</div>
-<button class="w-full bg-primary text-white font-bold py-5 rounded-xl transition-all duration-500 hover:tracking-widest uppercase text-sm shadow-premium" type="submit">Submit Enquiry</button>
+<button class="contact-btn w-full bg-gradient-to-r from-primary to-primary-container text-white font-bold py-4 rounded-xl transition-all duration-300" type="submit">Submit Enquiry</button>
 </form>
 </div>
 </div>
@@ -1331,15 +1117,21 @@ html.lenis, html.lenis body { height: auto; }
     <button class="contact-btn w-full bg-gradient-to-r from-primary to-primary-container text-white py-4 rounded-xl font-bold hover:scale-[1.02] transition shadow-lg">
       Enquire Now
     </button>
-  </d<script>
+  </div>
+</div>
+
+<script>
         // --- Smooth Scroll Engine (Lenis) ---
         const lenis = new Lenis({
-            duration: 1.5,
+            duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
+            gestureDirection: 'vertical',
+            smoothHover: true,
             smoothWheel: true,
             wheelMultiplier: 1.1,
             touchMultiplier: 2,
+            infinite: false,
         })
 
         function raf(time) {
@@ -1349,14 +1141,15 @@ html.lenis, html.lenis body { height: auto; }
         requestAnimationFrame(raf)
 
         // Integrate Lenis with ScrollTrigger
-        gsap.registerPlugin(ScrollTrigger);
         lenis.on('scroll', ScrollTrigger.update)
         gsap.ticker.add((time)=>{
             lenis.raf(time * 1000)
         })
         gsap.ticker.lagSmoothing(0)
 
-        // --- Property Data & Modal logic ---
+        // --- Premium Animation Engine (GSAP) ---
+        gsap.registerPlugin(ScrollTrigger);
+
         const properties = {
           bokul: {
             title: "Bokul Enclave",
@@ -1391,95 +1184,57 @@ html.lenis, html.lenis body { height: auto; }
 
           document.getElementById('propertyModal').classList.remove('hidden');
           document.getElementById('propertyModal').classList.add('flex');
-          document.body.style.overflow = 'hidden'; 
+          document.body.style.overflow = 'hidden'; // Prevent scroll
         }
 
         function closeProperty() {
           document.getElementById('propertyModal').classList.add('hidden');
           document.getElementById('propertyModal').classList.remove('flex');
-          document.body.style.overflow = 'auto'; 
+          document.body.style.overflow = 'auto'; // Re-enable scroll
         }
 
+        // Close modal when clicking outside
         window.onclick = function(event) {
           const modal = document.getElementById('propertyModal');
-          if (event.target == modal) closeProperty();
+          if (event.target == modal) {
+            closeProperty();
+          }
         }
 
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('tab-active');
-                btn.classList.add('text-on-surface-variant');
+                btn.classList.add('text-white/70');
             });
-            document.querySelectorAll('.project-grid').forEach(grid => grid.classList.add('hidden'));
+            document.querySelectorAll('.project-grid').forEach(grid => {
+                grid.classList.add('hidden');
+            });
 
             document.getElementById('btn-' + tab).classList.add('tab-active');
-            document.getElementById('btn-' + tab).classList.remove('text-on-surface-variant');
+            document.getElementById('btn-' + tab).classList.remove('text-white/70');
             document.getElementById('grid-' + tab).classList.remove('hidden');
+            
+            // Re-trigger reveal check for the new grid
             ScrollTrigger.refresh();
         }
 
-        // --- Cinematic Animation System ---
-        const isMobile = window.innerWidth <= 768;
-
+        // --- Reveal & Stagger Implementation ---
+        
         document.addEventListener('DOMContentLoaded', () => {
-
-            // STATS: Set values immediately (no animation dependency)
-            document.querySelectorAll('.stat-item').forEach(item => {
-                const counter = item.querySelector('.stat-counter');
-                if (!counter) return;
-                const target = parseInt(counter.getAttribute('data-target'));
-                const suffix = target > 5 ? "+" : "";
-
-                if (isMobile) {
-                    // Mobile: show final value instantly
-                    counter.innerText = target + suffix;
-                } else {
-                    // Desktop: animated count-up on scroll
-                    ScrollTrigger.create({
-                        trigger: item,
-                        start: "top 85%",
-                        onEnter: () => {
-                            gsap.to(counter, {
-                                innerText: target,
-                                duration: 3,
-                                snap: { innerText: 1 },
-                                ease: "power2.out",
-                                onUpdate: function() {
-                                    counter.innerText = Math.ceil(this.targets()[0].innerText) + suffix;
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-
-            // MOBILE: Force all elements visible, skip all animations
-            if (isMobile) {
-                document.querySelectorAll('.reveal, .premium-card, .team-card, .project-card, .testimonial-card, .service-card, .hero-card-container, .hero h1, .contact-form, .contact-info-item, .reveal-text span span, .stat-item').forEach(el => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'none';
-                    el.style.filter = 'none';
-                    el.style.visibility = 'visible';
-                    el.classList.add('visible');
-                });
-                document.body.classList.remove('js-loading');
-                return; // Skip ALL GSAP animations on mobile
-            }
-
-            // === DESKTOP ONLY ANIMATIONS BELOW ===
+            // Force scroll to top on refresh for cinematic entry
             window.scrollTo(0, 0);
 
             // Hero Cinematic Entry
             const heroTimeline = gsap.timeline({ delay: 0.5 });
-            const heroLines = document.querySelectorAll('.hero .reveal-text span > span');
             
+            const heroLines = document.querySelectorAll('.hero .reveal-text span > span');
             if (heroLines.length > 0) {
                 heroTimeline.from(heroLines, {
-                    y: 60,
+                    y: 80,
                     opacity: 0,
-                    rotateX: -10,
-                    duration: 1.8,
-                    stagger: 0.1,
+                    rotateX: -15,
+                    duration: 1.2,
+                    stagger: 0.12,
                     ease: "power4.out"
                 });
             }
@@ -1487,48 +1242,280 @@ html.lenis, html.lenis body { height: auto; }
             heroTimeline.to(".hero-card-container", {
                 opacity: 1,
                 scale: 1,
-                duration: 2,
+                duration: 1.5,
                 ease: "power3.out"
-            }, "-=1.2");
+            }, "-=0.8");
 
-            // Global Reveal for Premium Cards & Sections
-            document.querySelectorAll('.reveal, .premium-card').forEach(el => {
-                gsap.from(el, {
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 88%",
-                        toggleActions: "play none none none"
-                    },
-                    y: 40,
-                    opacity: 0,
-                    duration: 2,
-                    ease: "power3.out",
-                    clearProps: "all"
+            // Stats Count-Up Animation
+            document.querySelectorAll('.stat-item').forEach(item => {
+                const counters = item.querySelectorAll('.stat-counter');
+                
+                ScrollTrigger.create({
+                    trigger: item,
+                    start: "top 85%",
+                    onEnter: () => {
+                        item.classList.add('active');
+                        counters.forEach(counter => {
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            gsap.to(counter, {
+                                innerText: target,
+                                duration: 2.5,
+                                snap: { innerText: 1 },
+                                ease: "power2.out",
+                                onUpdate: function() {
+                                    counter.innerText = Math.ceil(this.targets()[0].innerText) + (target > 5 ? "+" : "");
+                                }
+                            });
+                        });
+                    }
                 });
             });
 
-            // Parallax Effects
+            // Services Grid Stagger
+            gsap.from(".service-card", {
+                scrollTrigger: {
+                    trigger: "#services",
+                    start: "top 75%",
+                },
+                y: 60,
+                opacity: 0,
+                filter: "blur(10px)",
+                duration: 1.2,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+
+            // Projects Grid Stagger
+            gsap.from(".project-card", {
+                scrollTrigger: {
+                    trigger: "#projects",
+                    start: "top 75%",
+                },
+                y: 70,
+                opacity: 0,
+                filter: "blur(10px)",
+                duration: 1.2,
+                stagger: 0.2,
+                ease: "power4.out"
+            });
+
+            // Team Grid Stagger
+            gsap.from(".team-card", {
+                scrollTrigger: {
+                    trigger: "#team",
+                    start: "top 80%",
+                },
+                y: 60,
+                opacity: 0,
+                filter: "blur(10px)",
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "power2.out"
+            });
+
+            // Testimonials Stagger
+            gsap.from(".testimonial-card", {
+                scrollTrigger: {
+                    trigger: ".testimonial-card",
+                    start: "top 85%",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out"
+            });
+
+            // Contact Section Anime
+            gsap.from(".contact-info-item", {
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "top 80%",
+                },
+                x: -30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power2.out"
+            });
+
+            gsap.from(".contact-form", {
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "top 80%",
+                },
+                x: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+
+            // General Reveals (Intersection Observer replacement)
+            document.querySelectorAll('.reveal').forEach((el) => {
+                // Skip items handled by GSAP
+                if (el.classList.contains('service-card') || 
+                    el.classList.contains('project-card') || 
+                    el.classList.contains('team-card') ||
+                    el.classList.contains('stat-item') ||
+                    el.classList.contains('testimonial-card') ||
+                    el.classList.contains('contact-info-item')) return;
+
+                gsap.to(el, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 90%",
+                        onEnter: () => el.classList.add('visible')
+                    }
+                });
+            });
+
+            // --- Parallax & Scroll-Zoom Implementation ---
+
+            // Background Grid Parallax
             gsap.to(".blueprint-grid", {
                 scrollTrigger: {
                     trigger: "body",
                     start: "top top",
+                    end: "bottom bottom",
                     scrub: 1
                 },
                 backgroundPosition: "0px 100px",
                 ease: "none"
             });
 
+            // Hero Parallax
             gsap.to(".hero h1", {
                 scrollTrigger: {
                     trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
                     scrub: true
                 },
-                y: 80,
-                opacity: 0.4,
+                y: 100,
+                opacity: 0.3,
                 ease: "none"
             });
 
-            // Sticky About Logic
+            gsap.to(".hero-card-container", {
+                scrollTrigger: {
+                    trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                },
+                y: -100,
+                scale: 1.05,
+                ease: "none"
+            });
+
+            // Project Image Scroll-Zoom
+            document.querySelectorAll('.project-image-container').forEach(container => {
+                const img = container.querySelector('img');
+                const icon = container.querySelector('.material-symbols-outlined');
+                
+                // Image zoom on scroll
+                gsap.to(img, {
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    },
+                    scale: 1.1,
+                    ease: "none"
+                });
+
+                // Icon parallax shift
+                gsap.to(icon, {
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    },
+                    scale: 1.3,
+                    y: -20,
+                    ease: "none"
+                });
+            });
+
+            // Team Section Parallax (Depth Effect)
+            gsap.to(".team-row-1", {
+                scrollTrigger: {
+                    trigger: "#team",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                },
+                y: -30,
+                ease: "none"
+            });
+
+            gsap.to(".team-row-2", {
+                scrollTrigger: {
+                    trigger: "#team",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                },
+                y: -60,
+                ease: "none"
+            });
+
+            // Section Layered Parallax (Subtle)
+            gsap.to("#about .reveal-right", {
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                },
+                y: -80,
+                ease: "none"
+            });
+
+            // Conclusion Section Animation
+            const conclusionLine = document.querySelector('.decorative-line');
+            const conclusionText = document.querySelectorAll('#conclusion .reveal-text span > span');
+
+            ScrollTrigger.create({
+                trigger: "#conclusion",
+                start: "top 80%",
+                onEnter: () => {
+                    conclusionLine.classList.add('active');
+                    gsap.from(conclusionText, {
+                        y: 60,
+                        opacity: 0,
+                        filter: "blur(10px)",
+                        duration: 2,
+                        stagger: 0.3,
+                        ease: "power3.out"
+                    });
+                }
+            });
+
+            // --- Typography Reveal Implementation (Hero) ---
+            // (Handled by heroTimeline now, removing old trigger)
+
+            // Other Text Reveals
+            document.querySelectorAll('main .reveal-text').forEach(text => {
+                if (text.closest('.hero')) return;
+                const lines = text.querySelectorAll('span > span');
+                gsap.from(lines, {
+                    scrollTrigger: {
+                        trigger: text,
+                        start: "top 95%",
+                    },
+                    y: 100,
+                    opacity: 0,
+                    rotateX: -20,
+                    duration: 1.5,
+                    stagger: 0.15,
+                    ease: "expo.out"
+                });
+            });
+
+            // --- Sticky Scroll Implementation ---
             gsap.to(".about-text-2", {
                 scrollTrigger: {
                     trigger: "#about",
@@ -1537,20 +1524,85 @@ html.lenis, html.lenis body { height: auto; }
                     toggleActions: "play reverse play reverse"
                 },
                 opacity: 1,
-                duration: 0.8
+                duration: 0.5
             });
 
-            // Desktop Failsafe
+            gsap.to(".about-text-1", {
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "center 60%",
+                    end: "bottom 80%",
+                    toggleActions: "play reverse play reverse"
+                },
+                opacity: 0.3,
+                duration: 0.5
+            });
+
+            // Navbar Scroll Progress Feedback
+            const progress = document.createElement('div');
+            progress.className = 'fixed top-0 left-0 h-[3px] bg-primary z-[60] transition-all duration-300';
+            progress.style.width = '0%';
+            document.body.appendChild(progress);
+
+            window.addEventListener('scroll', () => {
+                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                progress.style.width = scrolled + '%';
+                
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                    gsap.to(nav, { 
+                        backdropFilter: "blur(20px)", 
+                        backgroundColor: "rgba(255,255,255,0.8)", 
+                        borderBottom: "1px solid rgba(0,0,0,0.05)",
+                        duration: 0.4 
+                    });
+                } else {
+                    nav.classList.remove('scrolled');
+                    gsap.to(nav, { 
+                        backdropFilter: "blur(0px)", 
+                        backgroundColor: "rgba(255,255,255,0)", 
+                        borderBottom: "1px solid rgba(0,0,0,0)",
+                        duration: 0.4 
+                    });
+                }
+            });
+
+            // Button Click Interactions
+            document.querySelectorAll('button, a.btn-premium').forEach(btn => {
+                btn.addEventListener('mousedown', () => gsap.to(btn, { scale: 0.97, duration: 0.1 }));
+                btn.addEventListener('mouseup', () => gsap.to(btn, { scale: 1, duration: 0.2 }));
+                btn.addEventListener('mouseleave', () => gsap.to(btn, { scale: 1, duration: 0.2 }));
+            });
+
+            // --- Failsafe: Force Visibility ---
+            // Ensure Hero elements that might have been hidden by CSS are shown
+            document.querySelectorAll('.hero-card-container, .hero h1, .hero, .reveal-text span span').forEach(el => {
+                gsap.set(el, { opacity: 1, y: 0, scale: 1, filter: "none", clearProps: "all" });
+            });
+
             setTimeout(() => {
-                document.querySelectorAll('.premium-card, .reveal, .hero-card-container').forEach(el => {
-                    gsap.to(el, { opacity: 1, y: 0, scale: 1, duration: 0.5, overwrite: true });
+                document.querySelectorAll('.reveal').forEach(el => {
+                    el.classList.add('visible');
+                });
+                // Also force any GSAP-set opacities
+                gsap.to(".service-card, .project-card, .team-card, .stat-item, .testimonial-card, .contact-info-item, .contact-form, .reveal-text span span", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    overwrite: true
                 });
                 document.body.classList.remove('js-loading');
                 ScrollTrigger.refresh();
-            }, 1500);
-        });
+            }, 3000);
 
+            // Re-refresh ScrollTrigger after images load
+            window.addEventListener('load', () => ScrollTrigger.refresh());
+
+            // Periodically refresh ScrollTrigger for dynamic content/Lenis
+            setInterval(() => ScrollTrigger.refresh(), 3000);
+        });
+        
+        // Mark as loading for the CSS failsafe
         document.body.classList.add('js-loading');
     </script>
-</body>
-</html>
+</body></html>
