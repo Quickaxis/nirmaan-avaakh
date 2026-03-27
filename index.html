@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nirmaan Avakh Developers | Discover, Invest and Grow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-tertiary-fixed": "#001c3a",
+                "on-primary-fixed-variant": "#5d4200",
+                "background": "#f9f9ff",
+                "surface-variant": "#d8e2ff",
+                "primary": "#7b5800",
+                "surface-dim": "#cbdaff",
+                "on-error-container": "#93000a",
+                "surface-container-highest": "#d8e2ff",
+                "on-error": "#ffffff",
+                "on-secondary": "#ffffff",
+                "primary-fixed-dim": "#f4be50",
+                "on-tertiary": "#ffffff",
+                "on-primary-container": "#483200",
+                "on-secondary-fixed-variant": "#364767",
+                "tertiary-fixed-dim": "#a6c8ff",
+                "on-primary": "#ffffff",
+                "secondary-fixed": "#d8e2ff",
+                "surface-container-lowest": "#ffffff",
+                "surface": "#f9f9ff",
+                "error-container": "#ffdad6",
+                "surface-container-low": "#f1f3ff",
+                "secondary-fixed-dim": "#b6c6ee",
+                "secondary-container": "#c7d7ff",
+                "surface-container": "#e8edff",
+                "tertiary": "#285fa1",
+                "surface-tint": "#7b5800",
+                "on-secondary-container": "#4d5d7f",
+                "on-primary-fixed": "#261900",
+                "inverse-on-surface": "#edf0ff",
+                "on-tertiary-container": "#003669",
+                "inverse-primary": "#f4be50",
+                "inverse-surface": "#1f304f",
+                "surface-container-high": "#e0e8ff",
+                "tertiary-fixed": "#d4e3ff",
+                "on-surface": "#081b39",
+                "secondary": "#4e5e80",
+                "outline-variant": "#d3c5b0",
+                "surface-bright": "#f9f9ff",
+                "outline": "#817663",
+                "on-background": "#081b39",
+                "on-secondary-fixed": "#081b39",
+                "error": "#ba1a1a",
+                "on-tertiary-fixed-variant": "#004786",
+                "primary-container": "#c8972b",
+                "on-surface-variant": "#4f4536",
+                "tertiary-container": "#70a1e7",
+                "primary-fixed": "#ffdea4"
+              },
+              fontFamily: {
+                "headline": ["Noto Serif", "serif"],
+                "body": ["Work Sans", "sans-serif"],
+                "label": ["Work Sans", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+    </script>
+    <style>
+        :root {
+            --primary-gold: #c8972b;
+            --primary-gold-glow: rgba(200, 151, 43, 0.15);
+            --primary-gold-intense: rgba(200, 151, 43, 0.4);
+        }
+
+        /* Global Transitions */
+        * {
+            transition: all 0.25s ease;
+        }
+
+        .blueprint-grid {
+            background-image: 
+                linear-gradient(to right, rgba(211, 197, 176, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(211, 197, 176, 0.1) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        .golden-underline::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 3px;
+            background-color: var(--primary-gold);
+            margin-top: 8px;
+        }
+
+        .tab-active {
+            background-color: var(--primary-gold) !important;
+            color: white !important;
+            box-shadow: 0 4px 20px var(--primary-gold-intense);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Hero Fixes */
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+            text-rendering: optimizeLegibility;
+        }
+        .hero h1 span {
+            color: #C8972B;
+            font-style: italic;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+        .hero h1 br {
+            display: block;
+            margin-bottom: 6px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+        }
+        .hero-card {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle, var(--primary-gold-glow), transparent 70%);
+            z-index: -1;
+        }
+
+        /* Stats Bar Fixes */
+        .stat-item {
+            transition: transform 0.3s ease;
+        }
+        .stat-item:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Services Fixes */
+        .service-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            background: linear-gradient(transparent, rgba(200, 151, 43, 0.05));
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Projects Fixes */
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        .project-image-container::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+            pointer-events: none;
+        }
+
+        /* Track Record Fixes */
+        .track-record-card {
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
+            transition: box-shadow 0.3s ease;
+        }
+        .track-record-card:hover {
+            box-shadow: 0 20px 50px var(--primary-gold-glow);
+        }
+
+        /* Team Fixes */
+        .team-card:hover {
+            box-shadow: 0 20px 60px rgba(200, 151, 43, 0.25);
+            transform: scale(1.03);
+        }
+
+        /* Testimonials Fixes */
+        .testimonial-card {
+            background: linear-gradient(to bottom, #FFFFFF, #FAFAF8);
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Contact Fixes */
+        input:focus, textarea:focus {
+            box-shadow: 0 0 0 2px var(--primary-gold-glow) !important;
+        }
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--primary-gold-intense);
+        }
+
+        /* Footer Fixes */
+        .footer-link {
+            position: relative;
+            display: inline-block;
+        }
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary-gold);
+            transition: width 0.3s ease;
+        }
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- Premium Animation System --- */
+        
+        /* Reveal Base */
+        .reveal {
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        
+        .reveal.visible {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        /* Specific Directions */
+        .reveal-up { transform: translateY(40px); }
+        .reveal-down { transform: translateY(-40px); }
+        .reveal-left { transform: translateX(-40px); }
+        .reveal-right { transform: translateX(40px); }
+        .reveal-scale { transform: scale(0.95); }
+        .reveal-fade { transform: none; }
+
+        /* Staggered Delays */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+        .delay-600 { transition-delay: 600ms; }
+        .delay-700 { transition-delay: 700ms; }
+        .delay-800 { transition-delay: 800ms; }
+
+        /* Global Premium Hover Interactions */
+        .hover-lift {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .hover-scale {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-scale:hover {
+            transform: scale(1.02);
+        }
+
+        /* Project Image Zoom */
+        .project-image-container {
+            overflow: hidden;
+        }
+        .project-image-container span {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-card:hover .project-image-container span {
+            transform: scale(1.15) rotate(2deg);
+        }
+
+        /* Navbar States */
+        nav {
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+        }
+        nav.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        /* Micro-animations */
+        .material-symbols-outlined {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .hover-lift:hover .material-symbols-outlined {
+            transform: scale(1.1);
+            color: var(--primary-gold);
+        }
+
+        .btn-premium {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-premium:active {
+            transform: scale(0.97);
+        }
+
+        input:focus, textarea:focus {
+            transform: translateY(-2px);
+            border-bottom-color: var(--primary-gold) !important;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<nav id="main-nav" class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm flex justify-between items-center px-8 py-4 max-w-full mx-auto">
+<div class="flex items-center gap-3 hover:scale-[1.02] transition-transform duration-300">
+<div class="bg-white border border-[#EFEFEF] rounded-[10px] p-[6px] flex items-center justify-center shadow-sm">
+<img src="images/logo.jpg" alt="Nirmaan Avakh Developers Logo" style="height: 38px;" class="w-auto object-contain">
+</div>
+<div class="flex flex-col justify-center leading-tight">
+<span class="text-[17px] font-bold tracking-tight text-on-surface uppercase">NIRMAAN AVAKH</span>
+<span class="text-[9px] tracking-[0.6em] text-on-surface uppercase opacity-80">DEVELOPERS</span>
+</div>
+</div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#projects">Projects</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#about">About Us</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#services">Services</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#invest">Invest</a>
+<a class="bg-gradient-to-r from-primary to-primary-container text-white px-6 py-2.5 rounded-lg font-semibold hover:scale-105 transition-transform" href="#contact">Contact Us</a>
+</div>
+</nav>
+<main class="blueprint-grid min-h-screen pt-20">
+<!-- Hero Section -->
+<section class="hero max-w-7xl mx-auto px-8 py-20 flex flex-col md:flex-row items-center gap-12">
+<div class="w-full md:w-[55%]">
+<span class="reveal reveal-up delay-100 inline-block bg-primary-fixed text-on-primary-fixed px-4 py-1.5 rounded-full text-xs font-bold tracking-widest mb-6 uppercase">DIBRUGARH'S TRUSTED PROPERTY PARTNER</span>
+<h1 class="reveal reveal-up delay-200 font-headline text-on-surface mb-8">
+  From Dream to<br>
+  Doorstep<br>
+  Unlock Your Next<br>
+  <span>Property</span>
+</h1>
+<p class="reveal reveal-up delay-300 text-lg text-on-surface-variant mb-10 max-w-[440px] leading-relaxed">
+                    Nirmaan Avakh Developers is reshaping the landscape of Dibrugarh with integrity, architectural brilliance, and a commitment to your future.
+                </p>
+<div class="reveal reveal-up delay-400 flex gap-4">
+<button class="btn-premium bg-gradient-to-r from-primary to-primary-container text-white px-8 py-4 rounded-xl font-bold hover:scale-105 transition-all contact-btn">Explore Projects</button>
+<button class="btn-premium border border-outline-variant text-on-surface px-8 py-4 rounded-xl font-bold hover:bg-surface-container transition-all">Our Story</button>
+</div>
+</div>
+<div class="w-full md:w-[45%] relative">
+<div class="reveal reveal-right delay-200 hero-card aspect-[4/5] rounded-3xl bg-gradient-to-br from-[#1A2B4A] to-[#0F1E35] overflow-hidden shadow-2xl flex items-center justify-center p-12 text-center relative">
+<div class="absolute inset-0 opacity-20 blueprint-grid"></div>
+<h2 class="reveal reveal-up delay-400 font-headline text-4xl text-white/90 leading-tight">NIRMAAN AVAKH PROPERTIES</h2>
+<!-- Stats Card Floating -->
+<div class="reveal reveal-up delay-600 absolute -bottom-6 -left-6 bg-surface-container-lowest p-6 rounded-2xl shadow-xl flex items-center gap-4 border-l-4 border-primary-container hover-lift">
+<div class="bg-primary-container/10 p-3 rounded-full">
+<span class="material-symbols-outlined text-primary-container">home_work</span>
+</div>
+<div>
+<p class="text-2xl font-bold text-on-surface">150+</p>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-tighter">Projects Completed</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Bar -->
+<section class="bg-[#1A2B4A] py-16">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+<div class="reveal reveal-up delay-100 stat-item space-y-2 hover-lift">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none">150+</h3>
+<p class="text-xs tracking-widest text-white/70 font-bold uppercase">PROJECTS COMPLETED</p>
+</div>
+<div class="reveal reveal-up delay-200 stat-item space-y-2 hover-lift">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none">500+</h3>
+<p class="text-xs tracking-widest text-white/70 font-bold uppercase">HAPPY CLIENTS</p>
+</div>
+<div class="reveal reveal-up delay-300 stat-item space-y-2 hover-lift">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none">5+</h3>
+<p class="text-xs tracking-widest text-white/70 font-bold uppercase">YEARS EXPERIENCE</p>
+</div>
+<div class="reveal reveal-up delay-400 stat-item space-y-2 hover-lift">
+<h3 class="text-[48px] font-bold text-primary-fixed leading-none">3</h3>
+<p class="text-xs tracking-widest text-white/70 font-bold uppercase">ACTIVE LOCATIONS</p>
+</div>
+</div>
+</section>
+<!-- About Us Section -->
+<section class="max-w-7xl mx-auto px-8 py-24 flex flex-col md:flex-row gap-16" id="about">
+<div class="reveal reveal-left md:w-1/2">
+<span class="text-primary-container font-bold text-xs tracking-[0.3em] uppercase mb-4 block">WHO WE ARE</span>
+<h2 class="font-headline text-4xl text-on-surface mb-8 golden-underline">Nirmaan Avakh Developers</h2>
+<div class="space-y-4 text-on-surface-variant leading-[1.9] text-lg">
+<p>Established with a vision to redefine real estate in Upper Assam, Nirmaan Avakh Developers stands as a pillar of trust and excellence in Dibrugarh. We don't just sell plots and apartments; we build foundations for generations.</p>
+<p class="mt-[18px]">Our approach combines local cultural insights with modern architectural standards, ensuring every project contributes positively to the Dibrugarh cityscape while delivering maximum value to our investors.</p>
+</div>
+</div>
+<div class="reveal reveal-right md:w-1/2">
+<div class="bg-[#0F1E35] p-10 rounded-3xl border-l-8 border-primary-container shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-white text-9xl">verified</span>
+</div>
+<h3 class="font-headline text-3xl text-white mb-8">Credibility &amp; Compliance</h3>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+<div>
+<p class="text-white font-bold mb-1">MSME Registered Entity</p>
+<p class="text-white/60 text-sm">Official certification ensuring quality and operational reliability.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+<div>
+<p class="text-white font-bold mb-1">RERA Compliant Projects</p>
+<p class="text-white/60 text-sm">Full transparency and legal protection for every buyer.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+<div>
+<p class="text-white font-bold mb-1">Title-Clear Documents</p>
+<p class="text-white/60 text-sm">Verified land records for hassle-free ownership transfers.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Our Services -->
+<section class="bg-surface-container-low py-24" id="services">
+<div class="max-w-7xl mx-auto px-8">
+<span class="reveal reveal-up text-primary-container font-bold text-xs tracking-[0.3em] uppercase mb-4 block">WHAT WE OFFER</span>
+<h2 class="reveal reveal-up delay-100 font-headline text-4xl text-on-surface mb-12 golden-underline">Our Services</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Service Card -->
+<div class="reveal reveal-up delay-100 service-card bg-surface-container-lowest p-8 rounded-2xl border-l-4 border-primary-container shadow-sm hover-lift transition-shadow">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">landscape</span>
+<h4 class="font-headline text-xl mb-3">Land Sale &amp; Purchase</h4>
+<p class="text-on-surface-variant leading-relaxed">Expert consultancy and facilitation for premium land acquisitions and strategic sales in the heart of Assam.</p>
+</div>
+<!-- Service Card -->
+<div class="reveal reveal-up delay-200 service-card bg-surface-container-lowest p-8 rounded-2xl border-l-4 border-primary-container shadow-sm hover-lift transition-shadow">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">apartment</span>
+<h4 class="font-headline text-xl mb-3">Flats &amp; Apartments Marketing</h4>
+<p class="text-on-surface-variant leading-relaxed">Comprehensive marketing solutions for high-end residential complexes, connecting buyers with their dream homes.</p>
+</div>
+<!-- Service Card -->
+<div class="reveal reveal-up delay-100 service-card bg-surface-container-lowest p-8 rounded-2xl border-l-4 border-primary-container shadow-sm hover-lift transition-shadow">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">home_pin</span>
+<h4 class="font-headline text-xl mb-3">Residential Sales &amp; Purchases</h4>
+<p class="text-on-surface-variant leading-relaxed">A dedicated team to guide you through the complexities of buying or selling residential properties with ease.</p>
+</div>
+<!-- Service Card -->
+<div class="reveal reveal-up delay-200 service-card bg-surface-container-lowest p-8 rounded-2xl border-l-4 border-primary-container shadow-sm hover-lift transition-shadow">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">key</span>
+<h4 class="font-headline text-xl mb-3">Rental Property Search</h4>
+<p class="text-on-surface-variant leading-relaxed">Curated listings and verified leads to help you find the perfect rental property that fits your lifestyle and budget.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us -->
+<section class="max-w-7xl mx-auto px-8 py-24 flex flex-col md:flex-row items-center gap-16">
+<div class="reveal reveal-left md:w-1/2">
+<span class="text-primary-container font-bold text-xs tracking-[0.3em] uppercase mb-4 block">OUR ADVANTAGE</span>
+<h2 class="font-headline text-4xl text-on-surface mb-10 golden-underline">Why Choose Us</h2>
+<div class="space-y-6">
+<div class="reveal reveal-up delay-100 flex items-center gap-6">
+<div class="h-10 w-10 min-w-[40px] rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">done</span>
+</div>
+<p class="text-on-surface font-medium">Deeply Rooted Local Market Knowledge</p>
+</div>
+<div class="reveal reveal-up delay-200 flex items-center gap-6">
+<div class="h-10 w-10 min-w-[40px] rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">done</span>
+</div>
+<p class="text-on-surface font-medium">Transparent and Fair Pricing Policy</p>
+</div>
+<div class="reveal reveal-up delay-300 flex items-center gap-6">
+<div class="h-10 w-10 min-w-[40px] rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">done</span>
+</div>
+<p class="text-on-surface font-medium">Rigorous Legal Due Diligence</p>
+</div>
+<div class="reveal reveal-up delay-400 flex items-center gap-6">
+<div class="h-10 w-10 min-w-[40px] rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">done</span>
+</div>
+<p class="text-on-surface font-medium">End-to-End Documentation Support</p>
+</div>
+<div class="reveal reveal-up delay-500 flex items-center gap-6">
+<div class="h-10 w-10 min-w-[40px] rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">done</span>
+</div>
+<p class="text-on-surface font-medium">Post-Sales Commitment &amp; Services</p>
+</div>
+</div>
+</div>
+<div class="reveal reveal-right md:w-1/2">
+<div class="track-record-card bg-surface-container-lowest p-10 rounded-3xl shadow-xl hover-lift">
+<h3 class="font-headline text-2xl text-on-surface mb-8">Our Track Record</h3>
+<div class="grid grid-cols-2 gap-8">
+<div class="reveal reveal-scale delay-100 p-6 bg-surface-container-low rounded-2xl">
+<p class="text-4xl font-bold text-primary">98%</p>
+<p class="text-xs font-bold text-on-surface-variant uppercase mt-2">Retention Rate</p>
+</div>
+<div class="reveal reveal-scale delay-200 p-6 bg-surface-container-low rounded-2xl">
+<p class="text-4xl font-bold text-primary">24h</p>
+<p class="text-xs font-bold text-on-surface-variant uppercase mt-2">Query Response</p>
+</div>
+<div class="reveal reveal-scale delay-300 p-6 bg-surface-container-low rounded-2xl">
+<p class="text-4xl font-bold text-primary">100%</p>
+<p class="text-xs font-bold text-on-surface-variant uppercase mt-2">Legal Clearance</p>
+</div>
+<div class="reveal reveal-scale delay-400 p-6 bg-surface-container-low rounded-2xl">
+<p class="text-4xl font-bold text-primary">50+</p>
+<p class="text-xs font-bold text-on-surface-variant uppercase mt-2">Premium Partners</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Projects -->
+<section class="bg-[#1A2B4A] py-24" id="projects">
+<div class="max-w-7xl mx-auto px-8">
+<div class="reveal reveal-up flex items-center gap-4 mb-6">
+<span class="bg-primary-container text-white px-4 py-1 font-bold text-[10px] tracking-widest uppercase">EXPLORE</span>
+<div class="h-[1px] flex-1 bg-white/20"></div>
+</div>
+<h2 class="reveal reveal-up delay-100 font-headline text-5xl text-white mb-12">Our Projects</h2>
+<!-- Tab Buttons -->
+<div class="reveal reveal-up delay-200 flex flex-wrap gap-4 mb-16">
+<button class="tab-btn tab-active px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 border border-white/10 hover:border-primary-container" id="btn-ongoing" onclick="switchTab('ongoing')">ONGOING</button>
+<button class="tab-btn px-8 py-3 rounded-full font-bold text-sm text-white/70 transition-all duration-300 border border-white/10 hover:border-primary-container" id="btn-upcoming" onclick="switchTab('upcoming')">UPCOMING</button>
+<button class="tab-btn px-8 py-3 rounded-full font-bold text-sm text-white/70 transition-all duration-300 border border-white/10 hover:border-primary-container" id="btn-completed" onclick="switchTab('completed')">COMPLETED</button>
+</div>
+<!-- Ongoing Grid -->
+<div class="project-grid grid grid-cols-1 md:grid-cols-3 gap-8" id="grid-ongoing">
+<div class="reveal reveal-scale delay-100 project-card bg-surface-container-lowest rounded-[16px] overflow-hidden shadow-2xl transition-all duration-300 hover-lift">
+<div class="project-image-container relative h-64 bg-gradient-to-tr from-primary/30 to-tertiary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-6xl opacity-30">construction</span>
+</div>
+<div class="p-8">
+<h4 class="font-headline text-2xl mb-2">Bokul Enclave</h4>
+<p class="text-on-surface-variant text-sm flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-sm">location_on</span> Chiring Chapori, Dibrugarh
+                            </p>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden mb-4">
+<div class="bg-primary-container h-full w-[65%]"></div>
+</div>
+<p class="text-[10px] font-bold text-primary-container tracking-widest uppercase">65% Completed</p>
+<button onclick="openProperty('bokul')" class="btn-premium mt-6 w-full bg-primary-container text-white py-3 rounded-lg font-bold hover:scale-105 transition">
+  View Details
+</button>
+</div>
+</div>
+<div class="reveal reveal-scale delay-200 project-card bg-surface-container-lowest rounded-[16px] overflow-hidden shadow-2xl transition-all duration-300 hover-lift">
+<div class="project-image-container relative h-64 bg-gradient-to-tr from-secondary/30 to-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-6xl opacity-30">architecture</span>
+</div>
+<div class="p-8">
+<h4 class="font-headline text-2xl mb-2">Chiring Residency</h4>
+<p class="text-on-surface-variant text-sm flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-sm">location_on</span> Chiring Chapori, Dibrugarh
+                            </p>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden mb-4">
+<div class="bg-primary-container h-full w-[40%]"></div>
+</div>
+<p class="text-[10px] font-bold text-primary-container tracking-widest uppercase">40% Completed</p>
+<button onclick="openProperty('chiring')" class="btn-premium mt-6 w-full bg-primary-container text-white py-3 rounded-lg font-bold hover:scale-105 transition">
+  View Details
+</button>
+</div>
+</div>
+<div class="reveal reveal-scale delay-300 project-card bg-surface-container-lowest rounded-[16px] overflow-hidden shadow-2xl transition-all duration-300 hover-lift">
+<div class="project-image-container relative h-64 bg-gradient-to-tr from-tertiary/30 to-secondary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-6xl opacity-30">garden_cart</span>
+</div>
+<div class="p-8">
+<h4 class="font-headline text-2xl mb-2">Lahowal Green Valley</h4>
+<p class="text-on-surface-variant text-sm flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-sm">location_on</span> Lahowal, Dibrugarh
+                            </p>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden mb-4">
+<div class="bg-primary-container h-full w-[80%]</div>
+</div>
+<p class="text-[10px] font-bold text-primary-container tracking-widest uppercase">80% Completed</p>
+<button onclick="openProperty('lahowal')" class="btn-premium mt-6 w-full bg-primary-container text-white py-3 rounded-lg font-bold hover:scale-105 transition">
+  View Details
+</button>
+</div>
+</div>
+</div>
+<!-- Upcoming Grid -->
+<div class="project-grid hidden grid grid-cols-1 md:grid-cols-3 gap-8" id="grid-upcoming">
+<div class="project-card bg-surface-container-lowest rounded-[16px] overflow-hidden shadow-2xl relative transition-all duration-300">
+<div class="absolute top-6 right-6 bg-secondary text-white px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase z-10">COMING SOON</div>
+<div class="project-image-container relative h-64 bg-gradient-to-tr from-primary-fixed to-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-6xl opacity-50">explore</span>
+</div>
+<div class="p-8">
+<h4 class="font-headline text-2xl mb-2">Thakurthan Gaon Plot</h4>
+<p class="text-on-surface-variant text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">location_on</span> Thakurthan, Dibrugarh
+                            </p>
+</div>
+</div>
+</div>
+<!-- Completed Grid -->
+<div class="project-grid hidden grid grid-cols-1 md:grid-cols-3 gap-8" id="grid-completed">
+<div class="project-card bg-surface-container-lowest rounded-[16px] overflow-hidden shadow-2xl relative transition-all duration-300">
+<div class="absolute top-6 right-6 bg-error text-white px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase z-10">SOLD OUT</div>
+<div class="project-image-container relative h-64 bg-gradient-to-tr from-on-surface-variant/20 to-outline-variant/50 flex items-center justify-center grayscale">
+<span class="material-symbols-outlined text-on-surface text-6xl opacity-30">done_all</span>
+</div>
+<div class="p-8">
+<h4 class="font-headline text-2xl mb-2">Jokai Residential Plots</h4>
+<p class="text-on-surface-variant text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">location_on</span> Jokai, Dibrugarh
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Commitment Strip -->
+<section class="bg-[#0F1E35] py-16 flex flex-col items-center justify-center text-center px-8 fade-up">
+<div class="max-w-[640px] flex flex-col items-center">
+<span class="text-primary-container font-headline text-xl mb-6 italic tracking-widest">— ✦ —</span>
+<p class="commitment-text text-white/80 font-headline text-2xl leading-relaxed tracking-[0.4px]">
+                "Our commitment lies in building not just structures, but lasting legacies of trust and transparency."
+            </p>
+</div>
+</section>
+<!-- Meet Our Team -->
+<section class="max-w-7xl mx-auto px-8 py-24" id="team">
+<span class="reveal reveal-up text-primary-container font-bold text-xs tracking-[0.3em] uppercase mb-4 block text-center">THE PEOPLE</span>
+<h2 class="reveal reveal-up delay-100 font-headline text-4xl text-on-surface mb-16 text-center">Meet Our Team</h2>
+<!-- Partners Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+<!-- Team Card -->
+<div class="reveal reveal-up delay-100 team-card bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden border-t-4 border-primary-container p-10 text-center hover-lift transition-all duration-300">
+<div class="w-[90px] h-[90px] bg-surface-container-high rounded-full mx-auto mb-6 flex items-center justify-center text-primary-container font-bold text-3xl">AD</div>
+<h4 class="font-headline text-xl mb-1 text-on-surface">Arjun Das</h4>
+<p class="text-primary-container text-xs font-bold tracking-widest uppercase">Managing Partner</p>
+</div>
+<div class="reveal reveal-up delay-200 team-card bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden border-t-4 border-primary-container p-10 text-center hover-lift transition-all duration-300">
+<div class="w-[90px] h-[90px] bg-surface-container-high rounded-full mx-auto mb-6 flex items-center justify-center text-primary-container font-bold text-3xl">NS</div>
+<h4 class="font-headline text-xl mb-1 text-on-surface">Naina Sahu</h4>
+<p class="text-primary-container text-xs font-bold tracking-widest uppercase">Operations Partner</p>
+</div>
+<div class="reveal reveal-up delay-300 team-card bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden border-t-4 border-primary-container p-10 text-center hover-lift transition-all duration-300">
+<div class="w-[90px] h-[90px] bg-surface-container-high rounded-full mx-auto mb-6 flex items-center justify-center text-primary-container font-bold text-3xl">DC</div>
+<h4 class="font-headline text-xl mb-1 text-on-surface">Dikuprava Changmai</h4>
+<p class="text-primary-container text-xs font-bold tracking-widest uppercase">Project Partner</p>
+</div>
+</div>
+<!-- Marketing Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+<div class="reveal reveal-up delay-400 team-card bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden border-t-4 border-primary-container p-10 text-center hover-lift transition-all duration-300">
+<div class="w-[90px] h-[90px] bg-surface-container-high rounded-full mx-auto mb-6 flex items-center justify-center text-primary-container font-bold text-3xl">SK</div>
+<h4 class="font-headline text-xl mb-1 text-on-surface">Sandhan Jyoti Kalita</h4>
+<p class="text-primary-container text-xs font-bold tracking-widest uppercase">Marketing Executive</p>
+</div>
+<div class="reveal reveal-up delay-500 team-card bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden border-t-4 border-primary-container p-10 text-center hover-lift transition-all duration-300">
+<div class="w-[90px] h-[90px] bg-surface-container-high rounded-full mx-auto mb-6 flex items-center justify-center text-primary-container font-bold text-3xl">MS</div>
+<h4 class="font-headline text-xl mb-1 text-on-surface">Manpreet Singh</h4>
+<p class="text-primary-container text-xs font-bold tracking-widest uppercase">Public Relations</p>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="bg-surface-container-low py-24">
+<div class="max-w-7xl mx-auto px-8">
+<span class="reveal reveal-up text-primary-container font-bold text-xs tracking-[0.3em] uppercase mb-4 block text-center">CLIENT STORIES</span>
+<h2 class="reveal reveal-up delay-100 font-headline text-4xl text-on-surface mb-16 text-center">What Our Clients Say</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Testimonial -->
+<div class="reveal reveal-fade delay-200 testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300 hover-lift">
+<div class="flex text-primary-container mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-headline italic text-on-surface-variant text-lg mb-8">"Buying my first plot in Bokul was a seamless experience. Nirmaan Avakh took care of every legal detail with absolute professionalism."</p>
+<h5 class="font-bold text-on-surface">Rajesh Dutta</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Local Business Owner</p>
+</div>
+<!-- Testimonial -->
+<div class="reveal reveal-fade delay-300 testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300 hover-lift">
+<div class="flex text-primary-container mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-headline italic text-on-surface-variant text-lg mb-8">"Their marketing team is exceptional. They helped me find a tenant for my apartment within a week. Highly recommended for property management."</p>
+<h5 class="font-bold text-on-surface">Amit Baruah</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">NRI Investor</p>
+</div>
+<!-- Testimonial -->
+<div class="reveal reveal-fade delay-400 testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300 hover-lift">
+<div class="flex text-primary-container mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-headline italic text-on-surface-variant text-lg mb-8">"Transparency is rare in real estate, but Nirmaan Avakh has it in their DNA. The site visits were organized and very informative."</p>
+<h5 class="font-bold text-on-surface">Priyanka Phukan</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Educator</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Us -->
+<section class="max-w-7xl mx-auto px-8 py-24 flex flex-col md:flex-row gap-16" id="contact">
+<div class="reveal reveal-left md:w-1/2">
+<span class="text-primary-container font-bold text-xs tracking-[0.3em] uppercase mb-4 block">GET IN TOUCH</span>
+<h2 class="font-headline text-4xl text-on-surface mb-12 golden-underline">Let's Discuss Your Future</h2>
+<div class="space-y-10">
+<div class="reveal reveal-up delay-100 flex items-center gap-6">
+<div class="h-12 w-12 rounded-full bg-primary-container text-white flex items-center justify-center hover-scale">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Head Office</p>
+<p class="text-on-surface font-medium">Chiring Chapori, Opposite Gymkhana, Dibrugarh, Assam 786001</p>
+</div>
+</div>
+<div class="reveal reveal-up delay-200 flex items-center gap-6">
+<div class="h-12 w-12 rounded-full bg-primary-container text-white flex items-center justify-center hover-scale">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Email Address</p>
+<p class="text-on-surface font-medium">contact@nirmaanavakh.com</p>
+</div>
+</div>
+<div class="reveal reveal-up delay-300 flex items-center gap-6">
+<div class="h-12 w-12 rounded-full bg-primary-container text-white flex items-center justify-center hover-scale">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Phone Number</p>
+<p class="text-on-surface font-medium">+91 94350 XXXXX</p>
+</div>
+</div>
+</div>
+</div>
+<div class="reveal reveal-right md:w-1/2">
+<div class="bg-surface-container-lowest p-10 rounded-3xl shadow-xl border-t-8 border-primary-container hover-lift transition-all">
+<h3 class="font-headline text-2xl text-on-surface mb-8">Enquiry Form</h3>
+<form class="space-y-6">
+<div>
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Full Name</label>
+<input class="w-full bg-surface-container-low border-none border-b-2 border-outline-variant focus:border-primary-container focus:ring-0 transition-all py-3 rounded-lg" placeholder="John Doe" type="text"/>
+</div>
+<div>
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Email ID</label>
+<input class="w-full bg-surface-container-low border-none border-b-2 border-outline-variant focus:border-primary-container focus:ring-0 transition-all py-3 rounded-lg" placeholder="john@example.com" type="email"/>
+</div>
+<div>
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Message</label>
+<textarea class="w-full bg-surface-container-low border-none border-b-2 border-outline-variant focus:border-primary-container focus:ring-0 transition-all py-3 rounded-lg" placeholder="I'm interested in..." rows="4"></textarea>
+</div>
+<button class="contact-btn w-full bg-gradient-to-r from-primary to-primary-container text-white font-bold py-4 rounded-xl transition-all duration-300" type="submit">Submit Enquiry</button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#081b39] pt-16 pb-8 border-t border-slate-800">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16 px-8 max-w-7xl mx-auto border-b border-slate-800 pb-12">
+<div>
+<span class="text-xl font-headline text-white mb-4 block uppercase tracking-tighter">Nirmaan Avakh <br/><span class="text-[10px] tracking-[0.5em] text-white/50">DEVELOPERS</span></span>
+<p class="text-slate-400/80 text-sm leading-relaxed max-w-sm">Crafting spaces that resonate with the heritage of Assam while paving the way for a modern, prosperous future for Dibrugarh.</p>
+</div>
+<div>
+<h4 class="text-primary font-bold text-xs tracking-widest uppercase mb-6">Quick Links</h4>
+<ul class="space-y-4">
+<li><a class="footer-link text-slate-400/80 hover:text-primary transition-colors text-sm" href="#projects">Ongoing Projects</a></li>
+<li><a class="footer-link text-slate-400/80 hover:text-primary transition-colors text-sm" href="#invest">Investment Opportunities</a></li>
+<li><a class="footer-link text-slate-400/80 hover:text-primary transition-colors text-sm" href="#about">Legal Documentation</a></li>
+<li><a class="footer-link text-slate-400/80 hover:text-primary transition-colors text-sm" href="#about">About Dibrugarh Real Estate</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-primary font-bold text-xs tracking-widest uppercase mb-6">Newsletter</h4>
+<p class="text-slate-400/80 text-sm mb-6">Stay updated on new project launches and market insights.</p>
+<div class="flex gap-2">
+<input class="bg-slate-900 border-none text-white text-sm rounded-lg flex-1 focus:ring-1 focus:ring-primary" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-white p-2 px-4 rounded-lg hover:scale-105 transition-all"><span class="material-symbols-outlined">send</span></button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-slate-500 text-xs">© 2024 Nirmaan Avakh Developers. All rights reserved.</p>
+<div class="flex gap-8">
+<a class="text-slate-500 hover:text-white transition-colors text-xs" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-white transition-colors text-xs" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-white transition-colors text-xs" href="#">Cookie Settings</a>
+<a class="text-slate-500 hover:text-white transition-colors text-xs" href="#">Sitemap</a>
+</div>
+</div>
+</footer>
+<!-- Property Modal -->
+<div id="propertyModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4">
+  <div class="bg-white max-w-2xl w-full rounded-2xl p-8 relative shadow-2xl">
+    
+    <button onclick="closeProperty()" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-600 transition">✕</button>
+    
+    <h2 id="propertyTitle" class="font-headline text-3xl font-bold mb-4 text-on-surface"></h2>
+    <p id="propertyLocation" class="text-primary-container font-bold text-sm mb-4 flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">location_on</span>
+        <span id="propertyLocationText"></span>
+    </p>
+    <p id="propertyDescription" class="text-on-surface-variant mb-8 leading-relaxed"></p>
+
+    <div class="grid grid-cols-2 gap-6 mb-8">
+      <div class="bg-surface-container-low p-4 rounded-xl">
+        <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Starting Price</p>
+        <span id="propertyPrice" class="text-xl font-bold text-primary"></span>
+      </div>
+      <div class="bg-surface-container-low p-4 rounded-xl">
+        <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Current Status</p>
+        <span id="propertyStatus" class="text-xl font-bold text-primary"></span>
+      </div>
+    </div>
+
+    <button class="contact-btn w-full bg-gradient-to-r from-primary to-primary-container text-white py-4 rounded-xl font-bold hover:scale-[1.02] transition shadow-lg">
+      Enquire Now
+    </button>
+  </div>
+</div>
+
+<script>
+        const properties = {
+          bokul: {
+            title: "Bokul Enclave",
+            location: "Chiring Chapori, Dibrugarh",
+            description: "Premium residential plots with excellent connectivity and legal clarity. This project offers a mix of modern amenities and traditional charm, ensuring a perfect living space for families looking for growth and comfort in Dibrugarh.",
+            price: "₹15L onwards",
+            status: "65% Completed"
+          },
+          chiring: {
+            title: "Chiring Residency",
+            location: "Chiring Chapori, Dibrugarh",
+            description: "Modern residential development ideal for families and investors. Our focus here is on architectural brilliance and sustainable living, providing a sanctuary away from the city's hustle while remaining deeply connected to its heart.",
+            price: "₹25L onwards",
+            status: "40% Completed"
+          },
+          lahowal: {
+            title: "Lahowal Green Valley",
+            location: "Lahowal, Dibrugarh",
+            description: "Nature-friendly plots with high appreciation potential. Green Valley is designed for those who appreciate the tranquility of nature without compromising on modern necessities, making it a prime investment choice.",
+            price: "₹12L onwards",
+            status: "80% Completed"
+          }
+        };
+
+        function openProperty(key) {
+          const data = properties[key];
+          document.getElementById('propertyTitle').innerText = data.title;
+          document.getElementById('propertyLocationText').innerText = data.location;
+          document.getElementById('propertyDescription').innerText = data.description;
+          document.getElementById('propertyPrice').innerText = data.price;
+          document.getElementById('propertyStatus').innerText = data.status;
+
+          document.getElementById('propertyModal').classList.remove('hidden');
+          document.getElementById('propertyModal').classList.add('flex');
+          document.body.style.overflow = 'hidden'; // Prevent scroll
+        }
+
+        function closeProperty() {
+          document.getElementById('propertyModal').classList.add('hidden');
+          document.getElementById('propertyModal').classList.remove('flex');
+          document.body.style.overflow = 'auto'; // Re-enable scroll
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+          const modal = document.getElementById('propertyModal');
+          if (event.target == modal) {
+            closeProperty();
+          }
+        }
+
+        function switchTab(tab) {
+            // Remove active classes
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('text-white/70');
+            });
+            document.querySelectorAll('.project-grid').forEach(grid => {
+                grid.classList.add('hidden');
+            });
+
+            // Add active classes
+            document.getElementById('btn-' + tab).classList.add('tab-active');
+            document.getElementById('btn-' + tab).classList.remove('text-white/70');
+            document.getElementById('grid-' + tab).classList.remove('hidden');
+        }
+
+        // --- Premium Animation Engine ---
+
+        // Intersection Observer for Reveal Animations
+        const revealObserverOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Stop observing once revealed to trigger only once
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, revealObserverOptions);
+
+        // Navbar Scroll Effect
+        const nav = document.getElementById('main-nav');
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Observe all reveal elements
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+            
+            // Initial scroll check
+            handleScroll();
+        });
+
+        window.addEventListener('scroll', handleScroll);
+    </script>
+</body></html>
