@@ -481,6 +481,140 @@ html.lenis, html.lenis body { height: auto; }
             transform: scale(1.05);
         }
 
+        /* --- Mobile Responsiveness Overrides (Apple Level) --- */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+                position: relative;
+            }
+
+            section {
+                padding: 4rem 1.25rem !important;
+            }
+
+            /* Navbar Mobile Fix */
+            #main-nav {
+                padding: 1rem 1.5rem !important;
+                height: auto !important;
+            }
+
+            #main-nav .text-\[17px\] {
+                font-size: 14px !important;
+            }
+
+            #main-nav .text-\[9px\] {
+                font-size: 7px !important;
+            }
+
+            #main-nav img {
+                height: 28px !important;
+            }
+
+            /* Hero Mobile Fix */
+            .hero {
+                padding-top: 6rem !important;
+                padding-bottom: 4rem !important;
+                gap: 2.5rem !important;
+                text-align: center;
+                flex-direction: column !important;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem !important;
+                line-height: 1.1 !important;
+                margin-bottom: 2rem !important;
+            }
+
+            .hero .flex.gap-6 {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
+            .btn-premium {
+                width: 100% !important;
+                padding: 1rem !important;
+                justify-content: center;
+            }
+
+            .hero-card-container {
+                aspect-ratio: 1/1 !important;
+                padding: 2rem !important;
+            }
+
+            .hero-card-container h2 {
+                font-size: 2.5rem !important;
+            }
+
+            /* Stats Mobile Fix */
+            .stat-item h3 {
+                font-size: 32px !important;
+            }
+
+            .stat-counter {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+
+            /* Card Layout Fixes */
+            .grid {
+                gap: 2rem !important;
+            }
+
+            .team-card, .project-card, .testimonial-card, .service-card {
+                padding: 2rem !important;
+                max-width: 100% !important;
+                margin: 0 auto !important;
+            }
+
+            .team-image-wrapper {
+                width: 100px !important;
+                height: 100px !important;
+            }
+
+            .team-name {
+                font-size: 1.5rem !important;
+            }
+
+            /* Form Mobile Fix */
+            .contact-form {
+                padding: 1.5rem !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            input, textarea {
+                padding: 1rem !important;
+                font-size: 1rem !important;
+            }
+
+            /* Conclusion Fix */
+            #conclusion {
+                padding: 6rem 1.5rem !important;
+            }
+
+            /* Hero Floating Stats Card Fix */
+            .hero .absolute.-bottom-8 {
+                position: relative !important;
+                bottom: auto !important;
+                left: auto !important;
+                margin-top: 2rem !important;
+                width: 100% !important;
+                border-radius: 1.5rem !important;
+                padding: 1.5rem !important;
+            }
+
+            /* Fix large empty gaps between sections */
+            .blueprint-grid.min-h-screen {
+                padding-top: 4rem !important;
+            }
+
+            footer {
+                padding: 4rem 1.5rem !important;
+            }
+        }
+
         .hover-scale {
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
