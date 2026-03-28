@@ -261,16 +261,55 @@ html.lenis, html.lenis body { height: auto; }
             transform: translateY(-8px);
         }
 
-        /* Testimonials Fixes */
+        /* Testimonials Slider Polish */
+        .testimonial-slider-container {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            overflow: hidden;
+            position: relative;
+            padding: 2rem 0;
+            background: rgba(249, 249, 251, 0.4);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .testimonial-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            padding: 2rem 1rem;
+            will-change: transform;
+        }
+
         .testimonial-card {
+            flex: 0 0 450px;
+            width: 450px;
             background: #FFFFFF;
             border: 1px solid rgba(239, 239, 239, 0.5);
-            box-shadow: var(--premium);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            cursor: grab;
         }
+
+        .testimonial-card:active {
+            cursor: grabbing;
+        }
+
         .testimonial-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--premium-hover);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(200, 151, 43, 0.12);
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-card {
+                flex: 0 0 88vw;
+                width: 88vw;
+                padding: 1.5rem !important;
+            }
+            .testimonial-slider-container {
+                padding: 1rem 0;
+            }
         }
 
         /* Contact Fixes */
@@ -994,9 +1033,10 @@ html.lenis, html.lenis body { height: auto; }
 <h2 class="reveal-text font-headline text-4xl text-on-surface mb-16 text-center">
   <span class="overflow-hidden block"><span class="block">What Our Clients Say</span></span>
 </h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Testimonial -->
-<div class="testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300 hover-lift">
+<div class="testimonial-slider-container">
+<div class="testimonial-track" id="testimonialTrack">
+<!-- Testimonial 1 -->
+<div class="testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300">
 <div class="flex text-primary-container mb-6">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
@@ -1008,8 +1048,8 @@ html.lenis, html.lenis body { height: auto; }
 <h5 class="font-bold text-on-surface">Rajesh Dutta</h5>
 <p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Local Business Owner</p>
 </div>
-<!-- Testimonial -->
-<div class="testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300 hover-lift">
+<!-- Testimonial 2 -->
+<div class="testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300">
 <div class="flex text-primary-container mb-6">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
@@ -1021,8 +1061,8 @@ html.lenis, html.lenis body { height: auto; }
 <h5 class="font-bold text-on-surface">Amit Baruah</h5>
 <p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">NRI Investor</p>
 </div>
-<!-- Testimonial -->
-<div class="testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300 hover-lift">
+<!-- Testimonial 3 -->
+<div class="testimonial-card p-10 rounded-3xl shadow-sm relative transition-all duration-300">
 <div class="flex text-primary-container mb-6">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
@@ -1033,6 +1073,7 @@ html.lenis, html.lenis body { height: auto; }
 <p class="font-headline italic text-on-surface-variant text-lg mb-8">"Transparency is rare in real estate, but Nirmaan Avakh has it in their DNA. The site visits were organized and very informative."</p>
 <h5 class="font-bold text-on-surface">Priyanka Phukan</h5>
 <p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Educator</p>
+</div>
 </div>
 </div>
 </div>
@@ -1369,17 +1410,95 @@ html.lenis, html.lenis body { height: auto; }
                 ease: "power2.out"
             });
 
-            // Testimonials Stagger
-            gsap.from(".testimonial-card", {
-                scrollTrigger: {
-                    trigger: ".testimonial-card",
-                    start: "top 85%",
-                },
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out"
+            // Testimonial Horizontal Slider (Infinite Loop)
+            const track = document.getElementById('testimonialTrack');
+            const slider = document.querySelector('.testimonial-slider-container');
+            
+            // Clone cards for seamless loop
+            const originalCards = Array.from(track.children);
+            originalCards.forEach(card => {
+                const clone = card.cloneNode(true);
+                track.appendChild(clone);
+            });
+            originalCards.forEach(card => {
+                const clone = card.cloneNode(true);
+                track.appendChild(clone);
+            });
+
+            let totalWidth = originalCards.length * (originalCards[0].offsetWidth + 24); // Card width + gap
+            let currentX = 0;
+            let isPaused = false;
+            let dragStartX = 0;
+            let dragStartPos = 0;
+
+            // Smooth Auto-scroll (Left to Right)
+            // Left to Right means X starts negative and moves towards 0, or we move 0 to X.
+            // But usually horizontal "left to right" movement in UI means the content moves from left towards right.
+            // X incrementing.
+            
+            function updateSlider() {
+                if (!isPaused) {
+                    currentX += 0.8; // Control speed here
+                    
+                    if (currentX >= 0) {
+                        currentX = -totalWidth;
+                    }
+                    
+                    gsap.set(track, { x: currentX });
+                }
+                requestAnimationFrame(updateSlider);
+            }
+
+            // Initial Position for seamless loop
+            currentX = -totalWidth;
+            gsap.set(track, { x: currentX });
+            updateSlider();
+
+            // Interaction Listeners
+            slider.addEventListener('mouseenter', () => isPaused = true);
+            slider.addEventListener('mouseleave', () => isPaused = false);
+            slider.addEventListener('touchstart', (e) => {
+                isPaused = true;
+                dragStartX = e.touches[0].clientX;
+                dragStartPos = currentX;
+            });
+            slider.addEventListener('touchmove', (e) => {
+                const dx = e.touches[0].clientX - dragStartX;
+                currentX = dragStartPos + dx;
+                
+                // Wrap around
+                if (currentX > 0) currentX = -totalWidth;
+                if (currentX < -totalWidth * 2) currentX = -totalWidth;
+                
+                gsap.set(track, { x: currentX });
+            });
+            slider.addEventListener('touchend', () => {
+                isPaused = false;
+            });
+
+            // Desktop Drag (Optional but nice)
+            let isDragging = false;
+            slider.addEventListener('mousedown', (e) => {
+                isPaused = true;
+                isDragging = true;
+                dragStartX = e.clientX;
+                dragStartPos = currentX;
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const dx = e.clientX - dragStartX;
+                currentX = dragStartPos + dx;
+                
+                if (currentX > 0) currentX = -totalWidth;
+                if (currentX < -totalWidth * 2) currentX = -totalWidth;
+                
+                gsap.set(track, { x: currentX });
+            });
+            window.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    isPaused = false;
+                }
             });
 
             // Contact Section Anime
